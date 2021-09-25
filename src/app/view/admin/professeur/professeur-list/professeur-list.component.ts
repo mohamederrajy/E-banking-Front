@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ProfessorService} from '../../../../controller/service/professor.service';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {Prof} from '../../../../controller/model/prof.model';
-import {SessionCours} from '../../../../controller/model/session-cours.model';
+import {EtudiantCours} from '../../../../controller/model/etudiant-cours.model';
 
 
 @Component({
@@ -42,11 +42,11 @@ export class ProfesseurListComponent implements OnInit {
         this.service.items = value;
     }
 
-    get itemsSession(): Array<SessionCours> {
+    get itemsSession(): Array<EtudiantCours> {
         return this.service.itemsSession;
     }
 
-    set itemsSession(value: Array<SessionCours>) {
+    set itemsSession(value: Array<EtudiantCours>) {
         this.service.itemsSession = value;
     }
 

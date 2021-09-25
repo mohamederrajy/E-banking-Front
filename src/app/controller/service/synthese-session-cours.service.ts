@@ -1,3 +1,4 @@
+/* tslint:disable:variable-name */
 import {Injectable} from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {SyntheseSessionCours} from '../model/synthese-session-cours.model';

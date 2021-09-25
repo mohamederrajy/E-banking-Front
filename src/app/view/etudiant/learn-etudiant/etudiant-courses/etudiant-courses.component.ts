@@ -11,7 +11,6 @@ import {QuizEtudiant} from '../../../../controller/model/quiz-etudiant.model';
 import {QuizEtudiantService} from '../../../../controller/service/quiz-etudiant.service';
 import {EtudiantReview} from '../../../../controller/model/etudiant-review.model';
 import {EtudiantReviewService} from '../../../../controller/service/etudiant-review.service';
-import {SectionItemService} from '../../../../controller/service/section-item.service';
 
 @Component({
     selector: 'app-etudiant-courses',
@@ -25,16 +24,8 @@ export class EtudiantCoursesComponent implements OnInit {
     cols: any[];
 
     // tslint:disable-next-line:max-line-length
-    constructor(private messageService: MessageService,
-                private quizService: QuizEtudiantService,
-                private loginService: LoginService,
-                private review: EtudiantReviewService,
-                private confirmationService: ConfirmationService,
-                private service: ParcoursService,
-                private sectionItemService: SectionItemService
-    ) {
+    constructor(private messageService: MessageService, private quizService: QuizEtudiantService, private loginService: LoginService, private review: EtudiantReviewService , private confirmationService: ConfirmationService, private service: ParcoursService) {
     }
-
     get selectedReview(): EtudiantReview {
         return this.review.selected;
     }
@@ -42,27 +33,8 @@ export class EtudiantCoursesComponent implements OnInit {
     set selectedReview(value: EtudiantReview) {
         this.review.selected = value;
     }
-
-    get showVocabulary(): boolean {
-        return this.sectionItemService.showVocabulary;
-    }
-
-    set showVocabulary(value: boolean) {
-        this.sectionItemService.showVocabulary = value;
-    }
-
-    Vocab(section: Section) {
-        this.sectionItemService.sectionSelected = section;
-
-        this.sectionItemService.getSectionItems().subscribe(data => {
-            this.sectionItemService.sectionSelected.sectionItems = data;
-            console.log(data);
-            this.showVocabulary = true;
-        });
-
-    }
-
     public FindSectionOneByOne(cour: Cours) {
+        this.service.selectedEtudiantCours.dateDebut = new Date();
         this.selectedcours = cour;
         let i = 0;
         i = i + 1;
@@ -75,11 +47,6 @@ export class EtudiantCoursesComponent implements OnInit {
         this.service.afficheOneSection().subscribe(
             data => {
                 this.selectedsection = data;
-                if (data.categorieSection.libelle === 'Vocabulary') {
-                    this.Vocab(data);
-                } else {
-                    this.showVocabulary = false;
-                }
                 //    for (let j = 0; j < 66 ; j++)
                 //    {
                 this.service.image = this.service.selectedsection.urlImage;
@@ -97,16 +64,18 @@ export class EtudiantCoursesComponent implements OnInit {
                                 console.log(this.quizEtudiantList);
                                 this.quizService.findAllQuestions(this.selectedQuiz.ref).subscribe(
                                     dataQuestions => {
-                                        if (data.questionCurrent > dataQuestions.length) {
+                                        if(data.questionCurrent > dataQuestions.length){
                                             this.passerQuiz = 'View Quiz';
                                             this.quizView = true;
-                                        } else {
+                                        }
+                                        else {
                                             this.passerQuiz = 'Continue Quiz';
                                             this.quizView = false;
                                         }
                                     }
                                 );
-                            }, error => {
+                            },error =>
+                            {
                                 this.passerQuiz = 'Take Quiz';
                                 this.quizView = false;
                             }
@@ -115,7 +84,6 @@ export class EtudiantCoursesComponent implements OnInit {
                 );
             });
     }
-
     get itemsEtudiantCours(): Array<EtudiantCours> {
         return this.service.itemsEtudiantCours;
     }
@@ -127,33 +95,26 @@ export class EtudiantCoursesComponent implements OnInit {
     get selectedEtudiantCours(): EtudiantCours {
         return this.service.selectedEtudiantCours;
     }
-
     set selectesssection(value: Array<Section>) {
         this.service.selectesssection = value;
     }
-
     public viewType2() {
         this.viewChooseType2 = true;
     }
-
     get viewChooseType2(): boolean {
         return this.service.viewChooseType2;
     }
-
 // tslint:disable-next-line:adjacent-overload-signatures
     get itemssection2(): Array<Section> {
         return this.service.itemssection2;
     }
-
     get selectescours(): Array<Cours> {
         return this.service.selectescours;
     }
-
     // tslint:disable-next-line:adjacent-overload-signatures
     set itemssection2(value: Array<Section>) {
         this.service.itemssection2 = value;
     }
-
     get selectedsection(): Section {
         return this.service.selectedsection;
     }
@@ -161,11 +122,9 @@ export class EtudiantCoursesComponent implements OnInit {
     set selectedsection(value: Section) {
         this.service.selectedsection = value;
     }
-
     set selectedEtudiantCours(value: EtudiantCours) {
         this.service.selectedEtudiantCours = value;
     }
-
     // tslint:disable-next-line:adjacent-overload-signatures
     set viewChooseType2(value: boolean) {
         this.service.viewChooseType2 = value;
@@ -175,7 +134,6 @@ export class EtudiantCoursesComponent implements OnInit {
     set submittedCours(value: boolean) {
         this.service.submittedCours = value;
     }
-
     get createDialogCours(): boolean {
         return this.service.createDialogCours;
     }
@@ -231,6 +189,10 @@ export class EtudiantCoursesComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.service.afficheCoursStudent().subscribe(
+            data => {
+                this.selectesscours = data;
+            });
         this.review.findReview(this.selectedcours.id).subscribe(
             data => {
                 this.selectedReview = data;

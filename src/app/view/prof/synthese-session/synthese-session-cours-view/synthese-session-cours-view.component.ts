@@ -1,14 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {ConfirmationService, MessageService} from 'primeng/api';
-import {SyntheseSessionCoursService} from '../../../../controller/service/synthese-session-cours.service';
 import {SyntheseSessionCours} from '../../../../controller/model/synthese-session-cours.model';
 import {City} from '../../../../controller/model/city.model';
 import {Etudiant} from '../../../../controller/model/etudiant.model';
 import {Prof} from '../../../../controller/model/prof.model';
 import {SessionCours} from '../../../../controller/model/session-cours.model';
 import {ProfessorService} from '../../../../controller/service/professor.service';
+import {SyntheseSessionCoursService} from '../../../../controller/service/synthese-session-cours.service';
 import {EtudiantCours} from '../../../../controller/model/etudiant-cours.model';
-
 @Component({
     selector: 'app-synthese-session-cours-list',
     templateUrl: './synthese-session-cours-list.component.html',

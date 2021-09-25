@@ -1,3 +1,4 @@
+/* tslint:disable:quotemark */
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
@@ -159,13 +160,10 @@ import {QuizCreateComponent} from './view/admin/quiz/quiz-create/quiz-create.com
 import {QuizEtudiantViewComponent} from './view/etudiant/Quiz/quiz-etudiant-view/quiz-etudiant-view.component';
 import {SessionCoursEditComponent} from './view/prof/session-cours/session-cours-edit/session-cours-edit.component';
 import {SessionCoursCreateComponent} from './view/prof/session-cours/session-cours-create/session-cours-create.component';
-import {SyntheseSessionComponent} from './view/prof/synthese-session/synthese-session.component';
 import {SessionCoursViewComponent} from './view/prof/session-cours/session-cours-view/session-cours-view.component';
 import {SessionCoursListComponent} from './view/prof/session-cours/session-cours-list/session-cours-list.component';
-import {SessionCoursComponent} from './view/prof/session-cours/session-cours.component';
 import {SyntheseSessionCoursListComponent} from './view/prof/synthese-session/synthese-session-cours-list/synthese-session-cours-list.component';
 import {SyntheseSessionCoursEditComponent} from './view/prof/synthese-session/synthese-session-cours-edit/synthese-session-cours-edit.component';
-import {SyntheseSessionCoursCreateComponent} from './view/prof/synthese-session/synthese-session-cours-create/synthese-session-cours-create.component';
 import {ProfesseurListComponent} from './view/admin/professeur/professeur-list/professeur-list.component';
 import {ProfesseurCreateComponent} from './view/admin/professeur/professeur-create/professeur-create.component';
 import {ProfesseurEditComponent} from './view/admin/professeur/professeur-edit/professeur-edit.component';
@@ -218,6 +216,9 @@ import { ProfComponent } from './view/prof/prof.component';
 import { PublicComponent } from './view/public/public.component';
 import { VocabularySectionProfComponent } from './view/prof/learn-teacher/vocabulary-section-prof/vocabulary-section-prof.component';
 import { VocabularySectionItemProfComponent } from './view/prof/learn-teacher/vocabulary-section-prof/vocabulary-section-item-prof/vocabulary-section-item-prof.component';
+import {SyntheseSessionComponent} from "./view/prof/synthese-session/synthese-session.component";
+import {SyntheseSessionCoursCreateComponent} from "./view/prof/synthese-session/synthese-session-cours-create/synthese-session-cours-create.component";
+import {ProfReviewViewComponent} from "./view/prof/learn-teacher/prof-review-view/prof-review-view.component";
 
 
 @NgModule({
@@ -381,7 +382,6 @@ import { VocabularySectionItemProfComponent } from './view/prof/learn-teacher/vo
         InscriptionProfComponent,
         QuizEtudiantViewComponent,
         SessionCoursEditComponent,
-        SessionCoursComponent,
         SessionCoursCreateComponent,
         SessionCoursViewComponent,
         SessionCoursListComponent,
@@ -440,6 +440,11 @@ import { VocabularySectionItemProfComponent } from './view/prof/learn-teacher/vo
         PublicComponent,
         VocabularySectionProfComponent,
         VocabularySectionItemProfComponent,
+        SessionCoursEditComponent,
+        ProfReviewViewComponent,
+        SessionCoursCreateComponent,
+        SessionCoursListComponent,
+        SessionCoursViewComponent
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},

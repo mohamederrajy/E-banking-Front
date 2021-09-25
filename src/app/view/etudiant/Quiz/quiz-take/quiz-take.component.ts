@@ -25,6 +25,12 @@ import {Section} from '../../../../controller/model/section.model';
 })
 export class QuizTakeComponent implements OnInit {
 
+  textSeleted: string;
+
+  synonym: any[];
+  value = 0;
+
+  wordDict: any;
   constructor(private service: QuizEtudiantService, private login: LoginService, private messageService: MessageService, private router: Router, private dictionnaryService: DictionaryService, private sanitizer: DomSanitizer, private confirmationService: ConfirmationService, private parcoursservice: ParcoursService, private http: HttpClient, private  vocab: VocabularyService) {
   }
 
@@ -75,7 +81,87 @@ export class QuizTakeComponent implements OnInit {
   on_off : boolean;
   totalNote = 0;
   placeholderTypeInput: string;
+  reponseInput: string;
+  disableInput = true;
+  input_true_false: boolean;
+  string_input = '';
+  son = '';
 
+  get listSynonymes(): Array<any> {
+    return this.dictionnaryService.listSynonymes;
+  }
+
+  set listSynonymes(value: Array<any>) {
+    this.dictionnaryService.listSynonymes = value;
+  }
+  get TranslateSynonymeDialog(): boolean {
+    return this.dictionnaryService.TranslateSynonymeDialog;
+  }
+
+  set TranslateSynonymeDialog(value: boolean) {
+    this.dictionnaryService.TranslateSynonymeDialog = value;
+  }
+
+  get Synonymes(): Array<any> {
+    return this.dictionnaryService.Synonymes;
+  }
+
+  set Synonymes(value: Array<any>) {
+    this.dictionnaryService.Synonymes = value;
+  }
+  public dict() {
+    const selection = window.getSelection();
+    this.textSeleted = selection.toString();
+    this.dictionnaryService.selected = new Dictionary();
+
+    this.dictionnaryService.FindByWord(this.textSeleted).subscribe(
+        data => {
+          this.dictionnaryService.selected = data;
+          this.wordDict = '';
+          this.dictionnaryService.listSynonymes = new Array<any>();
+          // tslint:disable-next-line:triple-equals no-unused-expression
+          if (this.textSeleted.length != 0 && this.dictionnaryService.selected.word == null) {
+            this.dictionnaryService.Translate(this.textSeleted).subscribe(
+                data => {
+                  this.dictionnaryService.Synonymes = data;
+                  this.wordDict = '';
+                  this.j = 0;
+                  this.listSynonymes = new Array<any>();
+                  for ( let i=this.j; i < this.Synonymes.length ; i++){
+                    // tslint:disable-next-line:triple-equals
+                    if(this.Synonymes[i] == '\"'){
+                      this.j = i;
+                      // @ts-ignore
+                      for ( let k=this.j + 1; k < this.Synonymes.length ; k++){
+                        // tslint:disable-next-line:triple-equals
+                        if(this.Synonymes[k] != '\"' && this.Synonymes[k] != ','){
+                          this.wordDict = this.wordDict + this.Synonymes[k];
+                        }else if (this.Synonymes[k] == ',') {
+                          break;
+                        } else
+                        {
+                          this.listSynonymes.push(this.wordDict);
+                          this.wordDict ='';
+                          this.j = k + 1;
+                          break;
+                        }
+                      }
+                    }
+                  }
+                });
+
+            console.log(this.listSynonymes);
+            this.dictionnaryService.selected.word = this.textSeleted;
+            this.submittedDict = false;
+            this.TranslateSynonymeDialog = true;
+            // tslint:disable-next-line:triple-equals
+          } else if (this.textSeleted.length != 0 && this.dictionnaryService.selected.word != null) {
+            this.dictionnaryService.selected.word = this.textSeleted;
+            this.submittedDictEdit = false;
+            this.editDialogDict = true;
+          }
+        });
+  }
   get answerCorrectOrFalse(): Array<boolean> {
     if(this._answerCorrectOrFalse == null)
     {
@@ -521,8 +607,11 @@ export class QuizTakeComponent implements OnInit {
     this.isChecked = false;
     this.next = false;
     this.on_off = false;
+    this.input_true_false = true;
+    this.disableInput = false;
     this.answerCorrectOrFalse = new Array<boolean>();
     document.getElementById('translate-correct-mistake').style.visibility = 'hidden';
+    document.getElementById('check-input').style.visibility = 'hidden';
     this.translate = '';
     document.getElementById('myAnswer').style.textDecoration = 'none';
     document.getElementById('tooltiptext').style.visibility = 'hidden';
@@ -541,6 +630,7 @@ export class QuizTakeComponent implements OnInit {
           dataQuizEtudiant => {
             this.reponseEtudiant.note = this.noteQst;
             this.reponseEtudiant.quizEtudiant = dataQuizEtudiant;
+            console.log(this.reponseEtudiant);
             this.service.insertReponseEtudiant(this.reponseEtudiant).subscribe();
           }
       );
@@ -641,7 +731,7 @@ export class QuizTakeComponent implements OnInit {
             }
             this.question1 = '';
             this.question2 = '';
-            this.placeholderTypeInput = '';
+            this.answer = '___';
             document.getElementById('myAnswer').style.color = 'black';
             document.getElementById('mistake').style.visibility = 'hidden';
             document.getElementById('mistake').style.height = '0px';
@@ -681,7 +771,8 @@ export class QuizTakeComponent implements OnInit {
             {
               this.answerCorrectOrFalse.push(true);
             }
-          } else if (this.selected.typeDeQuestion.ref == 't3') {
+          }
+          else if (this.selected.typeDeQuestion.ref == 't3') {
             for(let i = 0 ; i < this.myanswers.length ; i++)
             {
               this.answerCorrectOrFalse.push(true);
@@ -690,8 +781,15 @@ export class QuizTakeComponent implements OnInit {
             this.question2 = '';
             this.answer = '_____';
             this.placeholderTypeInput = '';
+            this.reponseInput = '';
+            this.disableInput = false;
+            this.input_true_false = true;
             document.getElementById('type-input').style.visibility = 'visible';
             document.getElementById('type-input').style.height = 'auto';
+            document.getElementById('type-question-input').style.color = '#0a80bb';
+            document.getElementById('type-question-input').style.textDecoration = 'none';
+            document.getElementById('type-question-input').style.color = '#0a80bb';
+            document.getElementById('check-input').style.visibility = 'visible';
             document.getElementById('mistake').style.visibility = 'hidden';
             document.getElementById('mistake').style.height = '0px';
             document.getElementById('question').style.visibility = 'hidden';
@@ -731,15 +829,10 @@ export class QuizTakeComponent implements OnInit {
             }
             for (let i = 0; i < this.debutBlink; i++) {
               this.question1 = this.question1 + this.selected.libelle[i];
-
             }
-            console.log('debut ' + this.debutPlaceholder);
-            console.log('fin ' + this.finPlaceholder);
             for (let i = this.debutPlaceholder; i < this.finPlaceholder; i++) {
-              console.log(this.selected.libelle[i]);
               this.placeholderTypeInput = this.placeholderTypeInput + this.selected.libelle[i];
             }
-            console.log(this.placeholderTypeInput)
             for (let i = this.finBlink; i < this.selected.libelle.length; i++) {
               this.question2 = this.question2 + this.selected.libelle[i];
             }
@@ -747,7 +840,8 @@ export class QuizTakeComponent implements OnInit {
             {
               this.answerCorrectOrFalse.push(true);
             }
-          } else if (this.selected.typeDeQuestion.ref == 't4') {
+          }
+          else if (this.selected.typeDeQuestion.ref == 't4') {
             for(let i = 0 ; i < this.myanswers.length ; i++)
             {
               this.answerCorrectOrFalse.push(true);
@@ -776,7 +870,8 @@ export class QuizTakeComponent implements OnInit {
               this.answerCorrectOrFalse.push(true);
             }
             this.isChecked = false;
-          }else if (this.selected.typeDeQuestion.ref == 't5') {
+          }
+          else if (this.selected.typeDeQuestion.ref == 't5') {
             for(let i = 0 ; i < this.myanswers.length ; i++)
             {
               this.answerCorrectOrFalse.push(true);
@@ -853,6 +948,7 @@ export class QuizTakeComponent implements OnInit {
               this.question2 = this.question2 + this.selected.libelle[i];
               this.question = this.question + this.selected.libelle[i];
             }
+            this.son = this.question;
             this.service.translate(this.question).subscribe(
                 data => {
                   this.translate = data;
@@ -888,6 +984,74 @@ export class QuizTakeComponent implements OnInit {
 
   ///////////////// correct mistake /////////
   checkCorrectMistake() {
+    if(this.selected.typeDeQuestion.ref == 't3')
+    {
+      if(this.correctAnswers[0].lib == this.reponseInput)
+      {
+        this.noteQst = this.selected.pointReponseJuste;
+        this.noteQuiz = this.noteQuiz + this.selected.pointReponseJuste;
+        this.reponseEtudiant.note = this.selected.pointReponseJuste;
+        this.input_true_false = true;
+        document.getElementById('type-question-input').style.color = '#1af045';
+        document.getElementById('type-question-input').style.textDecoration = 'none';
+      }
+      else {
+        this.noteQst = this.selected.pointReponsefausse;
+        this.noteQuiz = this.noteQuiz + this.selected.pointReponsefausse;
+        this.reponseEtudiant.note = this.selected.pointReponsefausse;
+        this.input_true_false = false;
+        document.getElementById('type-question-input').style.color = 'red';
+        document.getElementById('type-question-input').style.textDecoration = 'line-through';
+      }
+      this.disable = true;
+      this.disableInput = true;
+      this.button = 'Next';
+      document.getElementById('check-input').style.visibility = 'hidden';
+      this.reponseEtudiant.reponse = null;
+      this.reponseEtudiant.answer = this.reponseInput;
+      this.reponseEtudiant.question = this.selected;
+      this.string_input = '';
+      for (let i = 0; i < this.selected.libelle.length; i++) {
+        if (this.selected.libelle[i] == '.' && this.selected.libelle[i + 1] == '.' && this.selected.libelle[i + 2] == '.') {
+          this.debutBlink = i;
+          for (let j = i + 2; j < this.selected.libelle.length; j++) {
+            if (this.selected.libelle[j] != '.') {
+              this.debutPlaceholder = j;
+              break;
+            }
+          }
+          for (let j = this.debutPlaceholder; j < this.selected.libelle.length; j++) {
+            if (this.selected.libelle[j] == '.') {
+              this.finPlaceholder = j;
+              break;
+            }
+          }
+          for (let j = this.finPlaceholder; j < this.selected.libelle.length; j++) {
+            if (this.selected.libelle[j] != '.') {
+              this.finBlink = j;
+              break;
+            }
+          }
+          break;
+        }
+      }
+      for (let i = 0; i < this.debutBlink; i++) {
+        this.string_input = this.string_input + this.selected.libelle[i];
+      }
+      this.string_input = this.string_input + this.correctAnswers[0].lib;
+      for (let i = this.debutPlaceholder; i < this.finPlaceholder; i++) {
+      }
+      console.log(this.placeholderTypeInput)
+      for (let i = this.finBlink; i < this.selected.libelle.length; i++) {
+        this.string_input = this.string_input + this.selected.libelle[i];
+      }
+      this.son = this.string_input;
+      this.service.translate(this.string_input).subscribe(
+          data => {
+            this.translate = data;
+          }
+      );
+    }
     if(this.selected.typeDeQuestion.ref == 't4')
     {
       this.check();
@@ -922,6 +1086,7 @@ export class QuizTakeComponent implements OnInit {
         );
         this.reponseEtudiant.answer = null;
       }
+      this.son = this.selected.libelle;
       this.service.translate(this.selected.libelle).subscribe(
           data => {
             this.translate = data;
@@ -1042,6 +1207,7 @@ export class QuizTakeComponent implements OnInit {
           }
       );
     }
+    this.son = this.correctAnswers[0].lib;
     this.service.translate(this.correctAnswers[0].lib).subscribe(
         data => {
           this.translate = data;
@@ -1129,7 +1295,7 @@ export class QuizTakeComponent implements OnInit {
               },
           );
         },error => console.log('erreeeeeeeeeeeeeeeeur') );
-    this.router.navigate(['/etudiant/etudiant-simulate-sections']);
+    this.router.navigate(['/pages/etudiantsimulatesections']);
   }
 
   public dictEdit(dict: Dictionary){
@@ -1221,17 +1387,17 @@ export class QuizTakeComponent implements OnInit {
                 },
             );
           });
-      this.router.navigate(['/etudiant/etudiant-simulate-sections']);
+      this.router.navigate(['/pages/etudiantsimulatesections']);
     } /*else {
       this.selectedsection.numeroOrder = 0;
       this.PreviousSection();
     }*/
   }
 
-  public sound(word: string){
-    const text = encodeURIComponent(word);
+  public sound(){
+    const text = encodeURIComponent(this.son);
     //const url = 'http://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&textlen=32&client=tw-ob&q=' + text + '&tl=En-gb';
-    const url = 'https://www.translatedict.com/speak.php?word='+word+'&lang=en';
+    const url = 'https://www.translatedict.com/speak.php?word='+this.son+'&lang=en';
     const audio = new Audio(url);
     audio.play();
   }

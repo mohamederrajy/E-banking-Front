@@ -1,4 +1,4 @@
-/* tslint:disable:adjacent-overload-signatures variable-name */
+/* tslint:disable:adjacent-overload-signatures variable-name member-ordering */
 import {Injectable} from '@angular/core';
 import {Parcours} from '../model/parcours.model';
 import {HttpClient} from '@angular/common/http';
@@ -10,6 +10,7 @@ import {Centre} from '../model/centre.model';
 import {Observable} from 'rxjs';
 import {Vocabulary} from '../model/vocabulary.model';
 import {EtudiantCours} from '../model/etudiant-cours.model';
+import {LoginService} from './login.service';
 
 
 @Injectable({
@@ -19,7 +20,9 @@ export class ParcoursService {
     private _index: number;
     private _contenuSection: Array<string>;
 
-
+    public afficheCoursStudent(): Observable<Array<Cours>> {
+        return this.http.get<Array<Cours>>('http://localhost:8036/learn/cours/order/id/' + this.user.etudiant.parcours.id);
+    }
     get contenuSection(): Array<string> {
         return this._contenuSection;
     }
@@ -36,8 +39,9 @@ export class ParcoursService {
         this._index = value;
     }
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private user: LoginService ) {
     }
+
 
     private _selectedparcours: Parcours;
 

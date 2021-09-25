@@ -24,7 +24,6 @@ import {InscriptionAdminComponent} from './view/public/inscription-admin/inscrip
 import {InscriptionProfComponent} from './view/public/inscription-prof/inscription-prof.component';
 import {QuizCreateComponent} from './view/admin/quiz/quiz-create/quiz-create.component';
 import {QuizEtudiantViewComponent} from './view/etudiant/Quiz/quiz-etudiant-view/quiz-etudiant-view.component';
-import {SyntheseSessionComponent} from './view/prof/synthese-session/synthese-session.component';
 import {ProfesseurListComponent} from './view/admin/professeur/professeur-list/professeur-list.component';
 import {EtudiantParcoursComponent} from './view/etudiant/learn-etudiant/etudiant-parcours/etudiant-parcours.component';
 import {EtudiantCoursesComponent} from './view/etudiant/learn-etudiant/etudiant-courses/etudiant-courses.component';
@@ -50,6 +49,7 @@ import {AdminComponent} from './view/admin/admin.component';
 import {PublicComponent} from './view/public/public.component';
 import {ProfComponent} from './view/prof/prof.component';
 import {EtudiantComponent} from './view/etudiant/etudiant.component';
+import {SyntheseSessionComponent} from './view/prof/synthese-session/synthese-session.component';
 
 
 @NgModule({
@@ -78,6 +78,7 @@ import {EtudiantComponent} from './view/etudiant/etudiant.component';
             {path:'prof',component: ProfComponent,
                 children:[
                     {path: 'home', component: HomeComponent},
+                    {path: 'quiz-preview', component: QuizPreviewComponent},
                     {path: 'courses', component: EdCoursesComponent},
                     {path: 'recommendation-teacher', component: RecommendationTeacherComponent},
                     {path: 'salary', component: SalaryComponent},
@@ -94,7 +95,6 @@ import {EtudiantComponent} from './view/etudiant/etudiant.component';
             },
             {path:'etudiant',component: EtudiantComponent,
                 children:[
-                    {path: 'etudiant-parcours', component: EtudiantParcoursComponent},
                     {path: 'faq-student', component: FaqStudentListComponent},
                     {path: 'news-student', component: NewsEtudiantListComponent},
                     {path: 'schedule-student', component: ScheduleStudentComponent},
