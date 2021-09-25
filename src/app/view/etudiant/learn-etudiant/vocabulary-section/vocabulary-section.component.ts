@@ -1,4 +1,4 @@
-import {Component, OnInit, Output, ViewChild,EventEmitter} from '@angular/core';
+import {Component, OnInit, Output, ViewChild, EventEmitter} from '@angular/core';
 import {ImageItemComponent} from '../../../admin/learn/section-item-preview/image-item/image-item.component';
 import {SectionItemModel} from '../../../../controller/model/section-item.model';
 import {MessageService} from 'primeng/api';
@@ -23,7 +23,7 @@ export class VocabularySectionComponent implements OnInit {
   showfinish: boolean;
   showEnd: boolean;
   showItems: boolean;
-  currentIndex:number
+  currentIndex: number;
   fliped: boolean;
   progressBarValue: number;
 
@@ -34,14 +34,14 @@ export class VocabularySectionComponent implements OnInit {
   ngOnInit(): void {
     this.listItems = this.sectionItemService.sectionSelected.sectionItems;
     this.currentItem = this.listItems[0];
-    this.currentIndex=this.listItems.indexOf(this.currentItem)+1;
-    this.calculProgressBarValue(this.currentIndex)
+    this.currentIndex = this.listItems.indexOf(this.currentItem) + 1;
+    this.calculProgressBarValue(this.currentIndex);
     this.showNext = true;
     this.showPrevious = false;
 
     this.showItems = true;
     this.showEnd = false;
-    this.fliped=false
+    this.fliped = false;
   }
 
 
@@ -66,12 +66,12 @@ export class VocabularySectionComponent implements OnInit {
     if ( index < this.listItems.length - 1) {
       this.child.reloadComponent();
       this.currentItem = this.listItems[index + 1];
-      this.currentIndex=index+2
-      this.calculProgressBarValue(this.currentIndex)
+      this.currentIndex = index + 2;
+      this.calculProgressBarValue(this.currentIndex);
       this.showNext = true;
       this.showfinish = false;
-      this.fliped=false
-      this.child.fliped=false
+      this.fliped = false;
+      this.child.fliped = false;
       console.log('Hada howa index' + index + 1);
 
     }
@@ -93,8 +93,8 @@ export class VocabularySectionComponent implements OnInit {
   }
 
   flip() {
-    this.fliped=true
-    this.child.showHidden()
+    this.fliped = true;
+    this.child.showHidden();
     const index = this.listItems.indexOf(this.currentItem);
     if (index + 1 >= this.listItems.length) {
       this.showNext = false;
@@ -103,8 +103,8 @@ export class VocabularySectionComponent implements OnInit {
   }
 
   calculProgressBarValue(index: number) {
-    const length=this.listItems.length
-    this.progressBarValue=(index*100)/length
+    const length = this.listItems.length;
+    this.progressBarValue = (index*100)/length;
   }
 
 }

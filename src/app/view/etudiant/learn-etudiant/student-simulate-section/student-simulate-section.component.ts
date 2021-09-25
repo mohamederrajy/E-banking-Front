@@ -314,14 +314,14 @@ export class StudentSimulateSectionComponent implements OnInit {
                 );
             }, error => console.log('erreeeeeeeeeeeeeeeeur'));
     }
-public ReviewExist(){
-    this.review.findReview(this.selectedcours.id).subscribe(
-        data => {
-            this.selectedReview = data;
-        });
-}
+    public ReviewExist(){
+        this.review.findReview(this.selectedcours.id).subscribe(
+            data => {
+                this.selectedReview = data;
+            });
+    }
     public finish() {
-        this.viewDialog = true;
+            this.viewDialog = true;
     }
 
     public openCreateDict() {
@@ -653,7 +653,7 @@ public ReviewExist(){
     }
 
 
-   async showVocabularyComponent() {
+    async showVocabularyComponent() {
         console.log("hadi kaat3yeett: "+this.selectedsection.categorieSection.libelle);
         if (this.selectedsection.categorieSection.libelle === 'Vocabulary') {
             this.Vocab(this.selectedsection)
@@ -676,8 +676,7 @@ public ReviewExist(){
     }
 
     return($event: string) {
-        this.showVocabulary=false;
+        this.showVocabulary=false
     }
-
 
 }

@@ -2,7 +2,7 @@
     <div class="p-grid">
         <p-toast></p-toast>
         <div  class="p-col" (mouseup)="dict()">
-            <div class="product-grid-item "  style="background-color: white">
+            <div *ngIf="showVocabulary===false" class="product-grid-item "  style="background-color: white">
                 <div class="product-grid-item-content" >
                     <div class="product-name" style="margin-bottom: 15px; background-color: orange; color: white"><h1>{{this.selectedsection.libelle}}</h1>
                     </div>
@@ -35,6 +35,9 @@
                     </div>
                 </div>
             </div>
+            <div *ngIf="showVocabulary===true" class="p-col">
+            <app-vocabulary-section (someEvent)="return($event)"></app-vocabulary-section>
+        </div>
             <div style="position: relative;margin-top: 50px">
                 <button (click)="PreviousSection()"
                         [style.visibility]="(this.selectedsection.numeroOrder != 1)? 'visible':'hidden'"
@@ -72,9 +75,7 @@
             </div>
         </div>
 
-        <div *ngIf="showVocabulary===true" class="p-col">
-            <app-vocabulary-section (someEvent)="return($event)"></app-vocabulary-section>
-        </div>
+
         <!-- <div class="p-col-2 card">
              <h5>Categorie</h5>
              <p-timeline [value]="itemssection2">

@@ -15,7 +15,9 @@ export class SectionEditComponent implements OnInit {
     // tslint:disable-next-line:max-line-length
     constructor(private messageService: MessageService, private confirmationService: ConfirmationService, private service: ParcoursService) {
     }
-
+    starttime: string = null;
+    endtime: string = null;
+    defaultDate = new Date(new Date().setHours(0, 0, 0, 0));
     get selectedsection(): Section {
         return this.service.selectedsection;
     }
@@ -86,19 +88,54 @@ export class SectionEditComponent implements OnInit {
         }
         return link;
     }
-
-    public urlvideo(link: any) {
-        if (link !== null) {
-            if (link.startsWith('https://www.youtube.com/watch')) {
-                const found = link.substring(32, 43);
+    public urlvideo() {
+        if (this.selectedsection.urlVideo !== null) {
+            if (this.selectedsection.urlVideo.startsWith('https://www.youtube.com/watch')) {
+                const found = this.selectedsection.urlVideo.substring(32, 43);
                 if (found !== null) {
                     console.log('hadaaaaa found== ' + found);
-                    return 'https://www.youtube.com/embed/' + found;
+                    this.selectedsection.urlVideo = 'https://www.youtube.com/embed/' + found;
                 }
             }
         }
-
-        return link;
+    }
+    public converttime(){
+        if ((this.starttime && this.endtime) != null ){
+            if (this.selectedsection.urlVideo.search('start')){
+                this.selectedsection.urlVideo = this.selectedsection.urlVideo.substring(0, 43);
+            }
+            const totalsecstart = this.converttoseconds(this.starttime);
+            const totalsecend = this.converttoseconds(this.endtime);
+            this.selectedsection.urlVideo += '?start=' + totalsecstart + '&end=' + totalsecend;
+        }
+        if ((this.starttime == null) || (this.endtime == null )){
+            console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+            if (this.selectedsection.urlVideo.search('start')){
+                this.selectedsection.urlVideo = this.selectedsection.urlVideo.substring(0, 43);
+            }
+            let totalsecend;
+            let totalsecstart;
+            if (this.starttime != null){
+                totalsecstart = this.converttoseconds(this.starttime);
+            }
+            else {totalsecstart = ''; }
+            if (this.endtime != null){
+                totalsecend = this.converttoseconds(this.endtime);
+            }
+            else {
+                totalsecend = '';
+            }
+            this.selectedsection.urlVideo += '?start=' + totalsecstart + '&end=' + totalsecend;
+        }
+        this.starttime = null;
+        this.endtime = null;
+    }
+    converttoseconds(time: string): number{
+        const a = time.split(':'); // split it at the colons
+        const seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]);
+        console.log('ha total de sec : ' + seconds);
+        // tslint:disable-next-line:radix
+        return parseInt(String(seconds));
     }
 
     public editSection() {
@@ -110,7 +147,7 @@ export class SectionEditComponent implements OnInit {
             }
             if (this.selectedsection.urlVideo) {
                 console.log(this.selectedsection.urlVideo);
-                this.selectedsection.urlVideo = this.urlvideo(this.selectedsection.urlVideo);
+                this.converttime();
             }
 
             this.itemssection[this.service.findSectionIndexById(this.selectedsection.id)] = this.selectedsection;
@@ -132,6 +169,7 @@ export class SectionEditComponent implements OnInit {
         this.selectedsection = new Section();
 
     }
+
 
     public hideEditDialog() {
         this.editDialogSection = false;
