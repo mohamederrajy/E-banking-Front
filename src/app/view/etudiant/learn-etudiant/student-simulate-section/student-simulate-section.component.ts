@@ -676,7 +676,7 @@ public ReviewExist(){
     }
 
     return($event: string) {
-        this.showVocabulary=false
+        this.showVocabulary=false;
     }
 
 

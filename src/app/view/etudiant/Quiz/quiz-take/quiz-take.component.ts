@@ -1295,7 +1295,7 @@ export class QuizTakeComponent implements OnInit {
               },
           );
         },error => console.log('erreeeeeeeeeeeeeeeeur') );
-    this.router.navigate(['/pages/etudiantsimulatesections']);
+    this.router.navigate(['/etudiant/etudiantsimulatesections']);
   }
 
   public dictEdit(dict: Dictionary){
@@ -1387,7 +1387,7 @@ export class QuizTakeComponent implements OnInit {
                 },
             );
           });
-      this.router.navigate(['/pages/etudiantsimulatesections']);
+      this.router.navigate(['/etudiant/etudiant-simulate-sections']);
     } /*else {
       this.selectedsection.numeroOrder = 0;
       this.PreviousSection();
