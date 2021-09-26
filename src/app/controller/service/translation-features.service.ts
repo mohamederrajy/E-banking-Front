@@ -25,7 +25,6 @@ export class TranslationFeaturesService {
 
 
     getTranslationFeatures(response: string): Observable<SectionItemModel> {
-
-        return this.http.get<SectionItemModel>(this.adminUrl + response);
+        return this.http.get<SectionItemModel>(this.adminUrl + 'TranslateEnAr/text/translationFeatures/' + response);
     }
 }

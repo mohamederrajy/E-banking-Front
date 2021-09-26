@@ -31,7 +31,6 @@ export class WebSocketService {
         // this.findbynumero(this.loginservice.prof.id);
         this.webSocket.onmessage = (event) => {
             const chatMessageDto = JSON.parse(event.data);
-            console.log(this.findstudentlist(this.idprof));
             this.chatMessages.push(chatMessageDto);
         };
 

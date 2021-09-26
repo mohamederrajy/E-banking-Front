@@ -11,7 +11,7 @@ export const environment = {
   profUrl: 'http://localhost:8036/prof/',
   etudiantUrl: 'http://localhost:8036/etudiant/',
   publicUrl: 'http://localhost:8036/public/',
-  socketUrl: 'ws://localhost:8036/chat/',
+  socketUrl: 'ws://localhost:8036/chat',
 };
 
 /*
