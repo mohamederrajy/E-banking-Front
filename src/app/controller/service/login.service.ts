@@ -4,6 +4,7 @@ import {Admin} from '../model/admin.model';
 import {Etudiant} from '../model/etudiant.model';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -11,7 +12,8 @@ import {Observable} from 'rxjs';
 export class LoginService {
 
 
-    private url = 'http://localhost:8036/learn/';
+    private adminUrl = environment.adminUrl;
+
 
     constructor(private http: HttpClient) {
     }
@@ -60,14 +62,14 @@ export class LoginService {
     }
 
     public findProf(username: string, password: string): Observable<Prof> {
-        return this.http.get<Prof>('http://localhost:8036/learn/prof/login/' + username + '/password/' + password);
+        return this.http.get<Prof>(this.adminUrl + 'prof/login/' + username + '/password/' + password);
     }
 
     public findEtudiant(username: string, password: string): Observable<Etudiant> {
-        return this.http.get<Etudiant>('http://localhost:8036/learn/etudiant/login/' + username + '/password/' + password);
+        return this.http.get<Etudiant>(this.adminUrl + 'etudiant/login/' + username + '/password/' + password);
     }
 
     public findAdmin(username: string, password: string): Observable<Admin> {
-        return this.http.get<Admin>('http://localhost:8036/learn/admin/login/' + username + '/password/' + password);
+        return this.http.get<Admin>(this.adminUrl + 'admin/login/' + username + '/password/' + password);
     }
 }

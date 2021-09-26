@@ -8,11 +8,15 @@ import {CalendrierProf} from '../model/schedule-prof.model';
 import {CalendrierVo} from '../model/calendrier-vo.model';
 import {Prof} from '../model/prof.model';
 import {LoginService} from './login.service';
+import {environment} from "../../../environments/environment";
 
 @Injectable({
     providedIn: 'root'
 })
 export class ScheduleService {
+
+    private adminUrl = environment.adminUrl;
+
 
     constructor(private http: HttpClient, private user: LoginService) {
     }
@@ -219,21 +223,21 @@ export class ScheduleService {
     }
 
     public findAll() {
-        return this.http.get<Array<CalendrierVo>>('http://localhost:8036/learn/calendrierProf/vo/').subscribe(data => {
+        return this.http.get<Array<CalendrierVo>>(this.adminUrl + 'calendrierProf/vo/').subscribe(data => {
             this.itemsVo = data;
             console.log(this.itemsVo);
         });
     }
 
     public findByStudent() {
-        return this.http.get<Array<CalendrierVo>>('http://localhost:8036/learn/calendrierProf/vo/etudiant/id/' + this.selected.etudiant.id).subscribe(data => {
+        return this.http.get<Array<CalendrierVo>>(this.adminUrl + 'calendrierProf/vo/etudiant/id/' + this.selected.etudiant.id).subscribe(data => {
             this.itemsVo = data;
             console.log(this.itemsVo);
         });
     }
 
     public findByProf() {
-        return this.http.get<Array<CalendrierVo>>('http://localhost:8036/learn/calendrierProf/vo/id/' + this.selected.prof.id).subscribe(data => {
+        return this.http.get<Array<CalendrierVo>>(this.adminUrl + 'calendrierProf/vo/id/' + this.selected.prof.id).subscribe(data => {
             this.itemsVo = data;
             console.log(this.itemsVo);
         });
@@ -245,7 +249,7 @@ export class ScheduleService {
     }
 
     public delete(): Observable<number> {
-        return this.http.delete<number>('http://localhost:8036/learn/calendrierProf/id' + this.selected.id);
+        return this.http.delete<number>(this.adminUrl + 'calendrierProf/id' + this.selected.id);
     }
 
     save() {
@@ -253,7 +257,7 @@ export class ScheduleService {
         this.selected.etudiant.nom = this.changedEvent.title;
         this.selected.startTime = this.changedEvent.startTime;
         this.selected.endTime = this.changedEvent.endTime;
-        this.http.post<CalendrierProf>('http://localhost:8036/learn/calendrierProf/', this.selected).subscribe(
+        this.http.post<CalendrierProf>(this.adminUrl + 'calendrierProf/', this.selected).subscribe(
             data => {
                 this.items.push({...data});
             }, error => {
@@ -264,7 +268,7 @@ export class ScheduleService {
     }
 
     public edit(): Observable<CalendrierProf> {
-        return this.http.put<CalendrierProf>('http://localhost:8036/learn/calendrierProf/', this.selected);
+        return this.http.put<CalendrierProf>(this.adminUrl + 'calendrierProf/', this.selected);
     }
 
 
@@ -276,23 +280,23 @@ export class ScheduleService {
     }
 
     public addStudent(): Observable<CalendrierProf> {
-        return this.http.post<CalendrierProf>('http://localhost:8036/learn/calendrierProf/', this.selected);
+        return this.http.post<CalendrierProf>(this.adminUrl + 'calendrierProf/', this.selected);
     }
 
     public getStudents(): Observable<Array<Etudiant>> {
-        return this.http.get<Array<Etudiant>>('http://localhost:8036/learn/etudiant/prof/id/' + this.selected.prof.id);
+        return this.http.get<Array<Etudiant>>(this.adminUrl + 'etudiant/prof/id/' + this.selected.prof.id);
     }
 
     public getAllStudents(): Observable<Array<Etudiant>> {
-        return this.http.get<Array<Etudiant>>('http://localhost:8036/learn/etudiant/');
+        return this.http.get<Array<Etudiant>>(this.adminUrl + 'etudiant/');
     }
 
     public getProf(): Observable<Array<Prof>> {
-        return this.http.get<Array<Prof>>('http://localhost:8036/learn/prof/');
+        return this.http.get<Array<Prof>>(this.adminUrl + 'prof/');
     }
 
     public findEtat(): Observable<Array<EtatEtudiantSchedule>> {
-        return this.http.get<Array<EtatEtudiantSchedule>>('http://localhost:8036/learn/etatEtudiantSchedule/');
+        return this.http.get<Array<EtatEtudiantSchedule>>(this.adminUrl + 'etatEtudiantSchedule/');
     }
 
 

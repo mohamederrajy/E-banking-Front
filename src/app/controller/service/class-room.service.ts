@@ -8,11 +8,15 @@ import {QuizClassRoom} from '../model/quiz-class-room.model';
 import {Observable} from 'rxjs';
 import {CategorieProf} from '../model/categorie-prof.model';
 import {SalaryVo} from '../model/salary-vo.model';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ClassRoomService {
+
+    private adminUrl = environment.adminUrl;
+
 
     constructor(private http: HttpClient) {
     }
@@ -292,44 +296,44 @@ export class ClassRoomService {
     }
 
     public findAllProf(): Observable<Array<Prof>> {
-        return this.http.get<Array<Prof>>('http://localhost:8036/learn/prof/');
+        return this.http.get<Array<Prof>>(this.adminUrl + 'prof/');
     }
 
     public findAllClass(): Observable<Array<ClassRoom>> {
-        return this.http.get<Array<ClassRoom>>('http://localhost:8036/learn/classRoom/');
+        return this.http.get<Array<ClassRoom>>(this.adminUrl + 'classRoom/');
 
     }
 
     public afficheClass(): Observable<Array<ClassRoom>> {
-        return this.http.get<Array<ClassRoom>>('http://localhost:8036/learn/classRoom/Prof/id/' + this.selectedprof.id);
+        return this.http.get<Array<ClassRoom>>(this.adminUrl + 'classRoom/Prof/id/' + this.selectedprof.id);
     }
 
     public afficheEtudiant(): Observable<Array<EtudiantClassRoom>> {
-        return this.http.get<Array<EtudiantClassRoom>>('http://localhost:8036/learn/etudiant-classRoom/id/' + this.selectedclassRoom.id);
+        return this.http.get<Array<EtudiantClassRoom>>(this.adminUrl + 'etudiant-classRoom/id/' + this.selectedclassRoom.id);
     }
 
     public afficheQuiz(): Observable<Array<QuizClassRoom>> {
-        return this.http.get<Array<QuizClassRoom>>('http://localhost:8036/learn/quiz-classRoom/id/' + this.selectedclassRoom.id);
+        return this.http.get<Array<QuizClassRoom>>(this.adminUrl + 'quiz-classRoom/id/' + this.selectedclassRoom.id);
     }
 
     public findAllCategorieProf(): Observable<Array<CategorieProf>> {
-        return this.http.get<Array<CategorieProf>>('http://localhost:8036/learn/categorieprof/');
+        return this.http.get<Array<CategorieProf>>(this.adminUrl + 'categorieprof/');
 
     }
 
     public findSalary(): Observable<SalaryVo> {
-        return this.http.get<SalaryVo>('http://localhost:8036/learn/salary/prof/id/' + this.selectedsalaryVo.prof.id);
+        return this.http.get<SalaryVo>(this.adminUrl + 'salary/prof/id/' + this.selectedsalaryVo.prof.id);
     }
 
     public findSalaryByDate(): Observable<SalaryVo> {
         // tslint:disable-next-line:max-line-length
-        return this.http.get<SalaryVo>('http://localhost:8036/learn/salary/mois/{mois}/annee/{annee}/prof/id/{id}?annee=' + this.selectedsalaryVo.annee + '&id=' + this.selectedsalaryVo.prof.id + '&mois=' + this.selectedsalaryVo.mois);
+        return this.http.get<SalaryVo>(this.adminUrl + 'salary/mois/{mois}/annee/{annee}/prof/id/{id}?annee=' + this.selectedsalaryVo.annee + '&id=' + this.selectedsalaryVo.prof.id + '&mois=' + this.selectedsalaryVo.mois);
     }
 
     public findSalaryByDateAndProf(): Observable<SalaryVo> {
         console.log((new Date().getMonth() + 1).toString());
         console.log((new Date().getFullYear().toString()));
         // tslint:disable-next-line:max-line-length
-        return this.http.get<SalaryVo>('http://localhost:8036/learn/salary/mois/{mois}/annee/{annee}/prof/id/{id}?annee=' + new Date().getFullYear().toString() + '&id=' + this.selectedsalaryVo.prof.id + '&mois=' + (new Date().getMonth() + 1).toString());
+        return this.http.get<SalaryVo>(this.adminUrl + 'salary/mois/{mois}/annee/{annee}/prof/id/{id}?annee=' + new Date().getFullYear().toString() + '&id=' + this.selectedsalaryVo.prof.id + '&mois=' + (new Date().getMonth() + 1).toString());
     }
 }

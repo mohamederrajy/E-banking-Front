@@ -14,7 +14,8 @@ import {SalaryVo} from '../model/salary-vo.model';
     providedIn: 'root'
 })
 export class RecommendTeacherService {
-    private url = environment.baseUrl + 'teacher/';
+
+    private adminUrl = environment.adminUrl;
 
     constructor(private http: HttpClient) {
     }
@@ -227,15 +228,15 @@ export class RecommendTeacherService {
     }
 
     findByCriteria(): Observable<Array<RecommendTeacher>> {
-        return this.http.post<Array<RecommendTeacher>>('http://localhost:8036/learn/teacher/search', this.recommendVo);
+        return this.http.post<Array<RecommendTeacher>>(this.adminUrl + 'teacher/search', this.recommendVo);
     }
 
     public save(): Observable<number> {
-        return this.http.post<number>('http://localhost:8036/learn/teacher/', this.selected);
+        return this.http.post<number>(this.adminUrl + 'teacher/', this.selected);
     }
 
     public edit(): Observable<RecommendTeacher> {
-        return this.http.put<RecommendTeacher>(this.url, this.selected);
+        return this.http.put<RecommendTeacher>(this.adminUrl + 'teacher/', this.selected);
     }
 
     public findIndexById(id: number): number {
@@ -250,18 +251,18 @@ export class RecommendTeacherService {
     }
 
     public findAll(): Observable<Array<RecommendTeacher>> {
-        return this.http.get<Array<RecommendTeacher>>('http://localhost:8036/learn/teacher/Prof/id/' + this.selected.prof.id);
+        return this.http.get<Array<RecommendTeacher>>(this.adminUrl + 'teacher/Prof/id/' + this.selected.prof.id);
     }
 
     public findAllProf(): Observable<Array<Prof>> {
-        return this.http.get<Array<Prof>>('http://localhost:8036/learn/prof/');
+        return this.http.get<Array<Prof>>(this.adminUrl + 'prof/');
     }
 
     public findAllRecommend(): Observable<Array<RecommendTeacher>> {
-        return this.http.get<Array<RecommendTeacher>>('http://localhost:8036/learn/teacher/');
+        return this.http.get<Array<RecommendTeacher>>(this.adminUrl + 'teacher/');
     }
 
     public findAllEtudiantByProf(): Observable<Array<Etudiant>> {
-        return this.http.get<Array<Etudiant>>('http://localhost:8036/learn/etudiant/prof/id/' + this.prof.id);
+        return this.http.get<Array<Etudiant>>(this.adminUrl + 'etudiant/prof/id/' + this.prof.id);
     }
 }

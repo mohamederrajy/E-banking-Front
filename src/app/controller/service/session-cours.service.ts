@@ -14,6 +14,8 @@ import {EtudiantCours} from '../model/etudiant-cours.model';
 export class SessionCoursService {
 
 
+    private adminUrl = environment.adminUrl;
+
     private url = environment.baseUrl + 'etudiantCours/';
 
     // }
@@ -144,39 +146,39 @@ export class SessionCoursService {
     }
 
     findByCriteria(): Observable<Array<EtudiantCours>> {
-        return this.http.post<Array<EtudiantCours>>('http://localhost:8036/learn/session/search', this.selected);
+        return this.http.post<Array<EtudiantCours>>(this.adminUrl + 'session/search', this.selected);
     }
 
     public findAll(): Observable<Array<EtudiantCours>> {
-        return this.http.get<Array<EtudiantCours>>(this.url);
+        return this.http.get<Array<EtudiantCours>>(this.adminUrl + 'etudiantCours/');
     }
 
     public findAllProf(): Observable<Array<Prof>> {
-        return this.http.get<Array<Prof>>('http://localhost:8036/learn/prof/');
+        return this.http.get<Array<Prof>>(this.adminUrl + 'prof/');
     }
 
     public findAllEtudiant(): Observable<Array<Etudiant>> {
-        return this.http.get<Array<Etudiant>>('http://localhost:8036/learn/etudiant/');
+        return this.http.get<Array<Etudiant>>(this.adminUrl + 'etudiant/');
     }
 
     public save(): Observable<SessionCours> {
-        return this.http.post<SessionCours>(this.url, this.selected);
+        return this.http.post<SessionCours>(this.adminUrl + 'etudiantCours/', this.selected);
     }
 
     public edit(): Observable<EtudiantCours> {
-        return this.http.put<EtudiantCours>(this.url, this.selected);
+        return this.http.put<EtudiantCours>(this.adminUrl + 'etudiantCours/', this.selected);
     }
 
     public update(session: SessionCours): Observable<SessionCours> {
-        return this.http.put<SessionCours>(this.url, session);
+        return this.http.put<SessionCours>(this.adminUrl + 'etudiantCours/', session);
     }
 
     public deleteByReference(): Observable<number> {
-        return this.http.delete<number>(this.url + 'id/' + this.selected.id);
+        return this.http.delete<number>(this.adminUrl + 'etudiantCours/id/' + this.selected.id);
     }
 
     public deleteMultipleByReference(): Observable<number> {
-        return this.http.post<number>(this.url + 'delete-multiple-by-id', this.selectes);
+        return this.http.post<number>(this.adminUrl + 'etudiantCours/delete-multiple-by-id', this.selectes);
     }
 
     public findIndexById(id: number): number {

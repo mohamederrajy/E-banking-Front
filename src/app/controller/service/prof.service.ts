@@ -10,7 +10,9 @@ import {Observable} from 'rxjs';
     providedIn: 'root'
 })
 export class ProfService {
-    private url = environment.baseUrl + 'prof/';
+
+    private adminUrl = environment.adminUrl;
+
 
     constructor(private http: HttpClient) {
     }
@@ -52,19 +54,19 @@ export class ProfService {
     }
 
     public save(): Observable<number> {
-        return this.http.post<number>('http://localhost:8036/learn/prof/', this.selectedProf);
+        return this.http.post<number>(this.adminUrl + 'prof/', this.selectedProf);
     }
 
     public savechatmsgs(prof: Prof): Observable<number> {
-        return this.http.post<number>('http://localhost:8036/learn/prof/', prof);
+        return this.http.post<number>(this.adminUrl + 'prof/', prof);
     }
 
     public findbyid(num: number): Observable<Prof> {
-        return this.http.get<Prof>('http://localhost:8036/learn/prof/id/' + num);
+        return this.http.get<Prof>(this.adminUrl + 'prof/id/' + num);
     }
 
     public findAllCategorieProf(): Observable<Array<CategorieProf>> {
-        return this.http.get<Array<CategorieProf>>('http://localhost:8036/learn/categorieprof/');
+        return this.http.get<Array<CategorieProf>>(this.adminUrl + 'categorieprof/');
     }
 
 

@@ -5,56 +5,36 @@ import {Etudiant} from '../model/etudiant.model';
 import {LoginService} from './login.service';
 import {ProfService} from './prof.service';
 import {Prof} from '../model/prof.model';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class WebSocketService {
 
+    private socketUrl = environment.socketUrl;
+
     webSocket: WebSocket;
     chatMessages: ChatMessageDto[] = [];
     students: Etudiant[];
     idprof: number;
 
+
     constructor(private serviceetudiant: EtudiantService, private loginservice: LoginService, public serviceprof: ProfService) {
     }
 
     public openWebSocket() {
-        this.webSocket = new WebSocket('ws://localhost:8036/chat');
+        this.webSocket = new WebSocket(this.socketUrl);
         this.webSocket.onopen = (event) => {
             console.log('Open: ', event);
         };
         // this.findbynumero(this.loginservice.prof.id);
         this.webSocket.onmessage = (event) => {
             const chatMessageDto = JSON.parse(event.data);
-            // console.log('ha students' + this.students);
             console.log(this.findstudentlist(this.idprof));
-            // console.log(JSON.parse(event.data));
-            // this.loginservice.prof = this.findbynumero(this.idprof);
-            /*  console.log('hahowa id d prof' + this.idprof);
-              this.serviceprof.findbyid(this.idprof).subscribe(
-                  data => {
-                    console.log('data dlprof' + data);
-                    // this.loginservice.etudiant.prof.chatMessageDto = data.chatMessageDto;
-                    this.loginservice.prof = data;
-                  },
-                  error => {
-                    console.log('erreur achrif');
-                  }
-              );
-
-
-              console.log(this.loginservice.prof.chatMessageDto);
-              this.loginservice.prof.chatMessageDto.push(chatMessageDto);
-              this.savechat(this.loginservice.prof);
-              this.findbynumero(this.loginservice.prof.id); */
-
-            // this.loginservice.prof.chatMessageDto.push(JSON.parse(event.data));
-            // this.loginservice.prof.students.forEach(item => {
-            //  item.chatMessageDto.push(JSON.parse(event.data));
-            // });
             this.chatMessages.push(chatMessageDto);
         };
+
         this.webSocket.onclose = (event) => {
             console.log('Close: ', event);
         };

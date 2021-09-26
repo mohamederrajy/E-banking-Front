@@ -3,11 +3,15 @@ import {Section} from '../model/section.model';
 import {Vocabulary} from '../model/vocabulary.model';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
+import {environment} from "../../../environments/environment";
 
 @Injectable({
     providedIn: 'root'
 })
 export class VocabularyService {
+
+    private adminUrl = environment.adminUrl;
+
 
     constructor(private http: HttpClient) {
     }
@@ -119,48 +123,48 @@ export class VocabularyService {
     }
 
     public save(): Observable<Vocabulary> {
-        return this.http.post<Vocabulary>('http://localhost:8036/learn/vocabulary/save/', this.selected);
+        return this.http.post<Vocabulary>(this.adminUrl + 'vocabulary/save/', this.selected);
     }
 
     public findAll(): Observable<Array<Vocabulary>> {
-        return this.http.get<Array<Vocabulary>>('http://localhost:8036/learn/vocabulary/');
+        return this.http.get<Array<Vocabulary>>(this.adminUrl + 'vocabulary/');
     }
 
     public findAllVocabSection(): Observable<Array<Vocabulary>> {
-        return this.http.get<Array<Vocabulary>>('http://localhost:8036/learn/vocabulary/section/id/' + this.idSection);
+        return this.http.get<Array<Vocabulary>>(this.adminUrl + 'vocabulary/section/id/' + this.idSection);
     }
 
     public findVocabularybySection(): Observable<Array<Vocabulary>> {
         // tslint:disable-next-line:max-line-length
-        return this.http.get<Array<Vocabulary>>('http://localhost:8036/learn/vocabulary/numero/' + this.numVocabulary + '/section/id/' + this.idSection);
+        return this.http.get<Array<Vocabulary>>(this.adminUrl + 'vocabulary/numero/' + this.numVocabulary + '/section/id/' + this.idSection);
     }
 
     public findByFirstNumero(): Observable<Vocabulary> {
-        return this.http.get<Vocabulary>('http://localhost:8036/learn/vocabulary/numero/1');
+        return this.http.get<Vocabulary>(this.adminUrl + 'vocabulary/numero/1');
     }
 
     public findByNextNumero(): Observable<Vocabulary> {
         this.numVocabulary = this.numVocabulary + 1;
-        return this.http.get<Vocabulary>('http://localhost:8036/learn/vocabulary/numero/' + this.numVocabulary);
+        return this.http.get<Vocabulary>(this.adminUrl + 'vocabulary/numero/' + this.numVocabulary);
 
     }
 
     public findByNextNumeroSection(): Observable<Array<Vocabulary>> {
         this.numVocabulary = this.numVocabulary + 1;
         // tslint:disable-next-line:max-line-length
-        return this.http.get<Array<Vocabulary>>('http://localhost:8036/learn/vocabulary/numero/' + this.numVocabulary + '/section/id/' + this.idSection);
+        return this.http.get<Array<Vocabulary>>(this.adminUrl + 'vocabulary/numero/' + this.numVocabulary + '/section/id/' + this.idSection);
     }
 
     public findByRef(selected: Vocabulary): Observable<Vocabulary> {
-        return this.http.get<Vocabulary>('http://localhost:8036/learn/vocabulary/ref/' + selected.ref);
+        return this.http.get<Vocabulary>(this.adminUrl + 'vocabulary/ref/' + selected.ref);
     }
 
     public edit(): Observable<Vocabulary> {
-        return this.http.put<Vocabulary>('http://localhost:8036/learn/vocabulary/', this.selected);
+        return this.http.put<Vocabulary>(this.adminUrl + 'vocabulary/', this.selected);
     }
 
     public deleteByReference(): Observable<number> {
-        return this.http.delete<number>('http://localhost:8036/learn/vocabulary/ref/' + this.selected.ref);
+        return this.http.delete<number>(this.adminUrl + 'vocabulary/ref/' + this.selected.ref);
     }
 
     public findIndexById(id: number): number {

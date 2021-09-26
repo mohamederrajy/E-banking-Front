@@ -13,7 +13,7 @@ export class SectionItemService {
     constructor(private http: HttpClient) {
     }
 
-    private _host = environment.sectionItemUrl;
+    private adminUrl = environment.adminUrl;
     private _showVocabulary:boolean
 
 
@@ -23,14 +23,6 @@ export class SectionItemService {
 
     set showVocabulary(value: boolean) {
         this._showVocabulary = value;
-    }
-
-    get host(): string {
-        return this._host;
-    }
-
-    set host(value: string) {
-        this._host = value;
     }
 
     private _sectionSelected: Section;
@@ -55,20 +47,20 @@ export class SectionItemService {
 
     public createSectionItems() {
         return this.http.post(
-            this.host + 'sectionId/' + this.sectionSelected.id,
+            this.adminUrl + 'sectionItem/sectionId/' + this.sectionSelected.id,
             this.sectionSelected.sectionItems);
     }
 
     public deleteSectionItems(ids: Array<number>) {
         return this.http.post(
-            this.host + 'deleteMultiple/',
+            this.adminUrl + 'sectionItem/deleteMultiple/',
             ids
         );
     }
 
     public getSectionItems(): Observable<SectionItemModel[]> {
         console.log('Hadaa howa id=' + this.sectionSelected?.id);
-        return this.http.get<SectionItemModel[]>(this.host + 'sectionId/' + this.sectionSelected?.id);
+        return this.http.get<SectionItemModel[]>(this.adminUrl + 'sectionItem/sectionId/' + this.sectionSelected?.id);
     }
 
 

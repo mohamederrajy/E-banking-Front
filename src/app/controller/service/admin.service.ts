@@ -11,6 +11,9 @@ import {environment} from '../../../environments/environment';
     providedIn: 'root'
 })
 export class AdminService {
+
+    private adminUrl = environment.adminUrl;
+
     private url = environment.baseUrl + 'admin/';
 
     constructor(private http: HttpClient) {
@@ -60,6 +63,6 @@ export class AdminService {
     }
 
     public save(): Observable<number> {
-        return this.http.post<number>('http://localhost:8036/learn/admin/', this.selected);
+        return this.http.post<number>(this.adminUrl + 'admin/', this.selected);
     }
 }

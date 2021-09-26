@@ -8,6 +8,7 @@ import {Observable} from 'rxjs';
 import {QuizConfig} from '../model/quiz-config.model';
 import {Section} from '../model/section.model';
 import {MessageService} from 'primeng/api';
+import {environment} from "../../../environments/environment";
 
 
 @Injectable({
@@ -16,12 +17,8 @@ import {MessageService} from 'primeng/api';
 export class QuizService {
 
 
-    public _url = 'http://localhost:8036/';
-    public _urlQuestion = 'learn/question';
-    public _urlType = 'learn/TypeDeQuestion';
+    private adminUrl = environment.adminUrl;
     private _typeDeQuestion: TypeDeQuestion;
-    private _urlReponse = 'learn/reponse';
-    private _urlQuiz = 'learn/quiz';
     private nombreReponseJuste: number = 0;
     private _viewOnOffDialog: boolean;
     private _viewOnOffUpdateDialog: boolean;
@@ -411,16 +408,13 @@ export class QuizService {
         return questions;
     }
 
-    public getReponses(): Observable<Array<Reponse>> {
-        return this.http.get<any>(this._url + this._urlReponse + '/');
-    }
-
+ 
     public saveConfig(): Observable<QuizConfig> {
-        return this.http.post<QuizConfig>(this._url + 'learn/quizConfig/', this.configuration);
+        return this.http.post<QuizConfig>(this.adminUrl + 'quizConfig/', this.configuration);
     }
 
     public findConfig(): Observable<Array<QuizConfig>> {
-        return this.http.get<Array<QuizConfig>>(this._url + 'learn/quizConfig/');
+        return this.http.get<Array<QuizConfig>>(this.adminUrl + 'quizConfig/');
     }
 
     public itemChecked(event: any) {
@@ -431,23 +425,23 @@ export class QuizService {
 
 
     /*public saveQuestion(): Observable<Question> {
-        return this.http.post<Question>(this._url + this._urlQuestion + '/', this.question);
+        return this.http.post<Question>(this.adminUrl + 'question/', this.question);
     }*/
 
     public save(): Observable<Quiz> {
-        return this.http.post<Quiz>(this._url + this._urlQuiz + '/save/', this.selected);
+        return this.http.post<Quiz>(this.adminUrl + 'quiz/save/', this.selected);
     }
 
     public edit(): Observable<Question> {
-        return this.http.put<Question>(this._url + this._urlQuestion + '/', this.question);
+        return this.http.put<Question>(this.adminUrl + 'question/', this.question);
     }
 
     public saveReponse(): Observable<Reponse> {
-        return this.http.post<Reponse>(this._url + this._urlReponse + '/', this.reponse);
+        return this.http.post<Reponse>(this.adminUrl + 'reponse/', this.reponse);
     }
 
     public findSections(): Observable<Array<Section>> {
-        return this.http.get<Array<Section>>(this._url + 'learn/section/');
+        return this.http.get<Array<Section>>(this.adminUrl + 'section/');
     }
 
     public findIndexById(id: number): number {
@@ -517,12 +511,12 @@ export class QuizService {
 
 
     public findType(): Observable<Array<TypeDeQuestion>> {
-        return this.http.get<Array<TypeDeQuestion>>(this._url + this._urlType + '/');
+        return this.http.get<Array<TypeDeQuestion>>(this.adminUrl + 'TypeDeQuestion/');
     }
 
     public findQuizByRef(quiz: string) {
         console.log(this.refQuiz);
-        this.http.get<any>(this._url + this._urlQuiz + '/ref/' + quiz).subscribe(
+        this.http.get<any>(this.adminUrl + 'quiz/ref/' + quiz).subscribe(
             data => {
                 console.log(data);
                 this.selected = data;
@@ -533,11 +527,11 @@ export class QuizService {
     }
 
     public findAllByQuizRef(quiz: string): Observable<Array<Question>> {
-        return this.http.get<Array<Question>>(this._url + this._urlQuestion + '/quiz/ref/' + quiz);
+        return this.http.get<Array<Question>>(this.adminUrl + 'question/quiz/ref/' + quiz);
     }
 
     findAll(): void {
-        this.http.get<any>(this._url + this._urlQuestion + '/').subscribe(
+        this.http.get<any>(this.adminUrl + 'question/').subscribe(
             data => {
                 this.questions = data;
 
@@ -549,7 +543,7 @@ export class QuizService {
 
     public findReponses(): Observable<Array<Reponse>> {
         this.numReponses = this.numReponses + 1;
-        return this.http.get<Array<Reponse>>('http://localhost:8036/learn/reponse/question/numero/' + this.numReponses);
+        return this.http.get<Array<Reponse>>(this.adminUrl + 'reponse/question/numero/' + this.numReponses);
     }
 
     public choixSelected(): void {
@@ -629,74 +623,74 @@ export class QuizService {
 
     public findCorrectAnswers(question: number): Observable<Array<Reponse>> {
         this.numCorrectAnswers = this.numCorrectAnswers + 1;
-        return this.http.get<Array<Reponse>>(this._url + this._urlReponse + '/criteria/id/' + question);
+        return this.http.get<Array<Reponse>>(this.adminUrl + 'reponse/criteria/id/' + question);
     }
 
     public findFirstQuestion(): Observable<Question> {
-        return this.http.get<Question>(this._url + this._urlQuestion + '/numero/1');
+        return this.http.get<Question>(this.adminUrl + 'question/numero/1');
     }
 
     public findMyAnswer(ref: string): Observable<Reponse> {
-        return this.http.get<Reponse>(this._url + this._urlReponse + '/ref/' + ref);
+        return this.http.get<Reponse>(this.adminUrl + 'reponse/ref/' + ref);
     }
 
     public findNextQuestion(): Observable<Question> {
         this.numQuestion = this.numQuestion + 1;
-        return this.http.get<Question>(this._url + this._urlQuestion + '/numero/' + this.numQuestion);
+        return this.http.get<Question>(this.adminUrl + 'question/numero/' + this.numQuestion);
     }
 
 
     public findQuiz(): Observable<Array<Quiz>> {
-        return this.http.get<Array<Quiz>>(this._url + this._urlQuiz + '/');
+        return this.http.get<Array<Quiz>>(this.adminUrl + 'quiz/');
     }
 
 /////////////////////////////////////////////////////////////////
     public findQuizSection(section: number): Observable<Quiz> {
-        return this.http.get<Quiz>('http://localhost:8036/learn/quiz/section/id/' + section);
+        return this.http.get<Quiz>(this.adminUrl + 'quiz/section/id/' + section);
     }
 
     public findQuestionByQuiz(quiz: Quiz): Observable<Array<Question>> {
-        return this.http.get<Array<Question>>('http://localhost:8036/learn/question/quiz/ref/' + quiz.ref);
+        return this.http.get<Array<Question>>(this.adminUrl + 'question/quiz/ref/' + quiz.ref);
     }
 
     public findAnswersByQuestion(question: Question): Observable<Array<Reponse>> {
-        return this.http.get<Array<Reponse>>('http://localhost:8036/learn/reponse/question/id/' + question.id);
+        return this.http.get<Array<Reponse>>(this.adminUrl + 'reponse/question/id/' + question.id);
     }
 
     public deleteQuiz(ref: string): Observable<Quiz> {
-        return this.http.delete<Quiz>('http://localhost:8036/learn/quiz/ref/' + ref);
+        return this.http.delete<Quiz>(this.adminUrl + 'quiz/ref/' + ref);
     }
 
     public updateQuiz(): Observable<Quiz> {
-        return this.http.put<Quiz>('http://localhost:8036/learn/quiz/', this.selected);
+        return this.http.put<Quiz>(this.adminUrl + 'quiz/', this.selected);
     }
 
     public deleteQuestion(id: string): Observable<Question> {
-        return this.http.delete<Question>('http://localhost:8036/learn/question/id/' + id);
+        return this.http.delete<Question>(this.adminUrl + 'question/id/' + id);
     }
 
     public saveQuetion(): Observable<Question> {
-        return this.http.post<Question>('http://localhost:8036/learn/question/', this.question);
+        return this.http.post<Question>(this.adminUrl + 'question/', this.question);
     }
 
     public updateQuestion(): Observable<Question> {
-        return this.http.put<Question>('http://localhost:8036/learn/question/', this.question);
+        return this.http.put<Question>(this.adminUrl + 'question/', this.question);
     }
 
     public findQuestionById(id: string): Observable<Question> {
-        return this.http.get<Question>('http://localhost:8036/learn/question/id/' + id);
+        return this.http.get<Question>(this.adminUrl + 'question/id/' + id);
     }
 
     public findAnswersByQuestionId(id: string): Observable<Array<Reponse>> {
-        return this.http.get<Array<Reponse>>('http://localhost:8036/learn/reponse/question/id/' + id);
+        return this.http.get<Array<Reponse>>(this.adminUrl + 'reponse/question/id/' + id);
     }
 
     public deleteAnswer(id: number): Observable<Reponse> {
-        return this.http.delete<Reponse>('http://localhost:8036/learn/reponse/id/' + id);
+        return this.http.delete<Reponse>(this.adminUrl + 'reponse/id/' + id);
     }
 
     public saveAnswer(answer: Reponse): Observable<Reponse> {
-        return this.http.post<Reponse>('http://localhost:8036/learn/reponse/save/', answer);
+        return this.http.post<Reponse>(this.adminUrl + 'reponse/save/', answer);
     }
 }
 

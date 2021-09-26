@@ -2,13 +2,15 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {News} from '../model/news.model';
 import {Observable} from 'rxjs';
+import {environment} from "../../../environments/environment";
 
 @Injectable({
     providedIn: 'root'
 })
 export class NewsService {
 
-    private url = 'http://localhost:8036/learn/news/';
+    private adminUrl = environment.adminUrl;
+
 
     constructor(private http: HttpClient) {
     }
@@ -93,31 +95,31 @@ export class NewsService {
     }
 
     public findAll(): Observable<Array<News>> {
-        return this.http.get<Array<News>>(this.url);
+        return this.http.get<Array<News>>(this.adminUrl + 'news/');
     }
 
     public findNews(destinataire: string): Observable<Array<News>> {
-        return this.http.get<Array<News>>(this.url + 'critere/destinataire/' + destinataire);
+        return this.http.get<Array<News>>(this.adminUrl + 'news/critere/destinataire/' + destinataire);
     }
 
     public findByRef(): Observable<News> {
-        return this.http.get<News>(this.url + 'ref/' + this.selected.ref);
+        return this.http.get<News>(this.adminUrl + 'news/ref/' + this.selected.ref);
     }
 
     public save(): Observable<News> {
-        return this.http.post<News>(this.url, this.selected);
+        return this.http.post<News>(this.adminUrl + 'news/', this.selected);
     }
 
     public edit(): Observable<News> {
-        return this.http.put<News>(this.url, this.selected);
+        return this.http.put<News>(this.adminUrl + 'news/', this.selected);
     }
 
     /*public deleteMultipleByReference(): Observable<number> {
-      return this.http.post<number>(this.url + 'delete-multiple-by-reference' , this.selectes);
+      return this.http.post<number>(this.adminUrl + 'news/delete-multiple-by-reference' , this.selectes);
     }*/
 
     public deleteByReference(ref: string): Observable<number> {
-        return this.http.delete<number>(this.url + 'ref/' + ref);
+        return this.http.delete<number>(this.adminUrl + 'news/ref/' + ref);
     }
 
     public findIndexById(id: number): number {

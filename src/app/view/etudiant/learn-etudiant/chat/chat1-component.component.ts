@@ -2,8 +2,8 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {ChatMessageDto} from '../../../../controller/model/chatMessageDto';
 import {LoginService} from '../../../../controller/service/login.service';
-import {WebSocketstudentService} from '../../../../controller/service/web-socketstudent.service';
 import {ProfService} from '../../../../controller/service/prof.service';
+import {WebSocketService} from '../../../../controller/service/web-socket.service';
 
 @Component({
     selector: 'app-chat1',
@@ -15,7 +15,7 @@ export class Chat1Component implements OnInit, OnDestroy {
     // profchat: ChatMessageDto[];
     today = Date.now();
 
-    constructor(public webSocketService: WebSocketstudentService, public servicelogin: LoginService, public serviceprof: ProfService) {
+    constructor(public webSocketService: WebSocketService, public servicelogin: LoginService, public serviceprof: ProfService) {
     }
 
     ngOnInit(): void {

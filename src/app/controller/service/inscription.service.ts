@@ -16,9 +16,8 @@ import {Etudiant} from '../model/etudiant.model';
 })
 export class InscriptionService {
 
-    private url = environment.baseUrl + 'inscription/';
+    private adminUrl = environment.adminUrl;
 
-    // }
     constructor(private http: HttpClient) {
     }
 
@@ -203,6 +202,7 @@ export class InscriptionService {
         this._prof = value;
     }
 
+    // tslint:disable-next-line:variable-name
     private _etatinscriptionslist: Array<EtatInscription>;
 
     get etatinscriptionslist(): Array<EtatInscription> {
@@ -243,24 +243,24 @@ export class InscriptionService {
     }
 
     findByCriteria(): Observable<Array<Inscription>> {
-        return this.http.post<Array<Inscription>>('http://localhost:8036/learn/inscription/search', this.selected);
+        return this.http.post<Array<Inscription>>(this.adminUrl + 'inscription/search', this.selected);
     }
 
     public findAllProf(): Observable<Array<Prof>> {
-        return this.http.get<Array<Prof>>('http://localhost:8036/learn/prof/');
+        return this.http.get<Array<Prof>>(this.adminUrl + 'prof/');
     }
 
     public findAllCentre(): Observable<Array<Centre>> {
-        return this.http.get<Array<Centre>>('http://localhost:8036/learn/centre/');
+        return this.http.get<Array<Centre>>(this.adminUrl + 'centre/');
     }
 
     public findAllParcours(): Observable<Array<Parcours>> {
-        return this.http.get<Array<Parcours>>('http://localhost:8036/learn/parcours/');
+        return this.http.get<Array<Parcours>>(this.adminUrl + 'parcours/');
 
     }
 
     public findAllEtat(): Observable<Array<EtatInscription>> {
-        return this.http.get<Array<EtatInscription>>('http://localhost:8036/learn/etatInscription/');
+        return this.http.get<Array<EtatInscription>>(this.adminUrl + 'etatInscription/');
     }
 
     public update(index: number, inscription: Inscription) {
@@ -269,27 +269,27 @@ export class InscriptionService {
     }
 
     public valider(): Observable<Inscription> {
-        return this.http.put<Inscription>('http://localhost:8036/learn/inscription/', this.selected);
+        return this.http.put<Inscription>(this.adminUrl + 'inscription/', this.selected);
     }
 
     public findAll(): Observable<Array<Inscription>> {
-        return this.http.get<Array<Inscription>>(this.url);
+        return this.http.get<Array<Inscription>>(this.adminUrl + 'inscription/');
     }
 
     public save(): Observable<Inscription> {
-        return this.http.post<Inscription>(this.url, this.selected);
+        return this.http.post<Inscription>(this.adminUrl + 'inscription/', this.selected);
     }
 
     public edit(): Observable<Inscription> {
-        return this.http.put<Inscription>(this.url, this.selected);
+        return this.http.put<Inscription>(this.adminUrl + 'inscription/', this.selected);
     }
 
     public deleteByNumeroInscription(): Observable<number> {
-        return this.http.delete<number>(this.url + 'id/' + this.selected.id);
+        return this.http.delete<number>(this.adminUrl + 'inscription/id/' + this.selected.id);
     }
 
     public deleteMultipleByNumeroInscription(): Observable<number> {
-        return this.http.post<number>(this.url + 'delete-multiple-by-id', this.selectes);
+        return this.http.post<number>(this.adminUrl + 'inscription/delete-multiple-by-id', this.selectes);
     }
 
     public findIndexById(id: number): number {

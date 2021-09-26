@@ -9,8 +9,9 @@ import {SectionItemModel} from '../model/section-item.model';
     providedIn: 'root'
 })
 export class TranslationFeaturesService {
-    host = environment.translationHost;
-    sectionAfterTranslate={}
+
+    private adminUrl = environment.adminUrl;
+    sectionAfterTranslate = {};
 
     constructor(private http: HttpClient, private sectionItemService: SectionItemService) {
     }
@@ -23,8 +24,8 @@ export class TranslationFeaturesService {
     }
 
 
-    getTranslationFeatures(response: string) :Observable<SectionItemModel> {
+    getTranslationFeatures(response: string): Observable<SectionItemModel> {
 
-        return this.http.get<SectionItemModel>(this.host + response)
+        return this.http.get<SectionItemModel>(this.adminUrl + response);
     }
 }

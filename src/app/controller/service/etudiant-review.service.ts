@@ -7,11 +7,15 @@ import {LoginService} from './login.service';
 import {ParcoursService} from './parcours.service';
 import {Etudiant} from '../model/etudiant.model';
 import {ProfReview} from '../model/ProfReview.model';
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class EtudiantReviewService {
+
+  private adminUrl = environment.adminUrl;
+
 
   constructor(private http: HttpClient, private user: LoginService,  private service: ParcoursService) { }
   private _viewDialog: boolean;
@@ -21,6 +25,7 @@ export class EtudiantReviewService {
   private _selectedReview: EtudiantReview;
   private _selectedProfReview: ProfReview;
   private _students: Array<Etudiant>;
+
 
 
   get students(): Array<Etudiant> {
@@ -77,18 +82,18 @@ export class EtudiantReviewService {
 
   public Save(): Observable<EtudiantReview> {
 
-    return this.http.post<EtudiantReview> ('http://localhost:8036/learn/etudiantReview/', this.selected);
+    return this.http.post<EtudiantReview> (this.adminUrl + 'etudiantReview/', this.selected);
   }
   public SaveReviewProf(): Observable<ProfReview> {
 
-    return this.http.post<ProfReview> ('http://localhost:8036/learn/profReview/', this.selectedProfReview);
+    return this.http.post<ProfReview> (this.adminUrl + 'profReview/', this.selectedProfReview);
   }
   public findReview(id: number): Observable<EtudiantReview> {
     // tslint:disable-next-line:max-line-length
-    return this.http.get<EtudiantReview> ('http://localhost:8036/learn/etudiantReview/etudiant/id/' + this.user.etudiant.id + '/cours/id/' + this.service.selectedcours.id);
+    return this.http.get<EtudiantReview> (this.adminUrl + 'etudiantReview/etudiant/id/' + this.user.etudiant.id + '/cours/id/' + this.service.selectedcours.id);
   }
   public findReviewProf(id: number): Observable<ProfReview> {
-    return this.http.get<ProfReview> ('http://localhost:8036/learn/profReview/etudiant/id/' + this.selectedProfReview.etudiant.id + '/cours/id/' + this.service.selectedcours.id + '/prof/id/' + this.user.prof.id);
+    return this.http.get<ProfReview> (this.adminUrl + 'profReview/etudiant/id/' + this.selectedProfReview.etudiant.id + '/cours/id/' + this.service.selectedcours.id + '/prof/id/' + this.user.prof.id);
   }
   get selected(): EtudiantReview {
     if (this._selected == null){
@@ -105,7 +110,7 @@ export class EtudiantReviewService {
     return this._viewDialog;
   }
   public getStudents(): Observable<Array<Etudiant>> {
-    return this.http.get<Array<Etudiant>>('http://localhost:8036/learn/etudiant/prof/id/' + this.user.prof.id);
+    return this.http.get<Array<Etudiant>>(this.adminUrl + 'etudiant/prof/id/' + this.user.prof.id);
   }
   // tslint:disable-next-line:adjacent-overload-signatures
   set viewDialog(value: boolean) {

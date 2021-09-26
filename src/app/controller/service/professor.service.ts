@@ -14,9 +14,8 @@ import {EtudiantCours} from '../model/etudiant-cours.model';
     providedIn: 'root'
 })
 export class ProfessorService {
-    private url = environment.baseUrl + 'prof/';
+    private adminUrl = environment.adminUrl;
 
-    // }
     constructor(private http: HttpClient, private user: LoginService) {
     }
 
@@ -167,50 +166,50 @@ export class ProfessorService {
     }
 
     public afficheSession(id: number): Observable<Array<EtudiantCours>> {
-        return this.http.get<Array<EtudiantCours>>('http://localhost:8036/learn/etudiantCours/prof/id/' + id);
+        return this.http.get<Array<EtudiantCours>>(this.adminUrl + 'etudiantCours/prof/id/' + id);
     }
     public afficheSessionStd(id: number): Observable<Array<EtudiantCours>> {
-        return this.http.get<Array<EtudiantCours>>('http://localhost:8036/learn/etudiantCours/prof/id/' + this.user.prof.id + '/etudiant/id/' + id );
+        return this.http.get<Array<EtudiantCours>>(this.adminUrl + 'etudiantCours/prof/id/' + this.user.prof.id + '/etudiant/id/' + id );
     }
     /*paiement*/
     public paiementProf(): Observable<Array<Paiement>> {
-        return this.http.get<Array<Paiement>>('http://localhost:8036/learn//prof/paiement');
+        return this.http.get<Array<Paiement>>(this.adminUrl + '/prof/paiement');
     }
 
     findByCriteria(): Observable<Array<Prof>> {
-        return this.http.post<Array<Prof>>('http://localhost:8036/learn/prof/search', this.selected);
+        return this.http.post<Array<Prof>>(this.adminUrl + 'prof/search', this.selected);
     }
 
     public findAll(): Observable<Array<Prof>> {
-        return this.http.get<Array<Prof>>('http://localhost:8036/learn/prof/');
+        return this.http.get<Array<Prof>>(this.adminUrl + 'prof/');
     }
 
     public Search(): Observable<Array<Prof>> {
-        return this.http.get<Array<Prof>>('http://localhost:8036/learn/prof/nom/' + this.selected.nom);
+        return this.http.get<Array<Prof>>(this.adminUrl + 'prof/nom/' + this.selected.nom);
     }
 
     public save(): Observable<Prof> {
-        return this.http.post<Prof>('http://localhost:8036/learn/prof/', this.selected);
+        return this.http.post<Prof>(this.adminUrl + 'prof/', this.selected);
     }
 
     public edit(): Observable<Prof> {
-        return this.http.put<Prof>(this.url, this.selected);
+        return this.http.put<Prof>(this.adminUrl + 'prof/', this.selected);
     }
 
     public deleteByReference(): Observable<number> {
-        return this.http.delete<number>(this.url + 'id/' + this.selected.id);
+        return this.http.delete<number>(this.adminUrl + 'prof/id/' + this.selected.id);
     }
 
     public deleteMultipleByReference(): Observable<number> {
-        return this.http.post<number>(this.url + 'delete-multiple-by-id', this.selectes);
+        return this.http.post<number>(this.adminUrl + 'prof/delete-multiple-by-id', this.selectes);
     }
 
     public payer(paiement: Paiement): Observable<Paiement> {
-        return this.http.post<Paiement>('http://localhost:8036/learn/paiement/', paiement);
+        return this.http.post<Paiement>(this.adminUrl + 'paiement/', paiement);
     }
 
     public findSessionNonPayer(id: number): Observable<Array<EtudiantCours>> {
-        return this.http.get<Array<EtudiantCours>>('http://localhost:8036/learn/prof/sessionNonPayer/prof/id/' + id);
+        return this.http.get<Array<EtudiantCours>>(this.adminUrl + 'prof/sessionNonPayer/prof/id/' + id);
     }
 
     public findIndexById(id: number): number {

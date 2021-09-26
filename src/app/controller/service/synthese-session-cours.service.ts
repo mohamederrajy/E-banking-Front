@@ -12,10 +12,10 @@ import {LoginService} from './login.service';
 })
 export class SyntheseSessionCoursService {
 
+    private adminUrl = environment.adminUrl;
 
     private url = environment.baseUrl + 'etat/';
-
-    // }
+    
     constructor(private http: HttpClient, private serviceUser: LoginService) {
     }
 
@@ -116,25 +116,25 @@ export class SyntheseSessionCoursService {
     }
 
     public findAll(): Observable<Array<SyntheseSessionCours>> {
-        return this.http.get<Array<SyntheseSessionCours>>(this.url);
+        return this.http.get<Array<SyntheseSessionCours>>(this.adminUrl + 'etat/');
     }
     public findAllStudent(): Observable<Array<Etudiant>> {
-        return this.http.get<Array<Etudiant>>('http://localhost:8036/learn/etudiant/prof/id/' + this.serviceUser.prof.id);
+        return this.http.get<Array<Etudiant>>(this.adminUrl + 'etudiant/prof/id/' + this.serviceUser.prof.id);
     }
     public save(): Observable<SyntheseSessionCours> {
-        return this.http.post<SyntheseSessionCours>(this.url, this.selected);
+        return this.http.post<SyntheseSessionCours>(this.adminUrl + 'etat/', this.selected);
     }
 
     public edit(): Observable<SyntheseSessionCours> {
-        return this.http.put<SyntheseSessionCours>(this.url, this.selected);
+        return this.http.put<SyntheseSessionCours>(this.adminUrl + 'etat/', this.selected);
     }
 
     public deleteByReference(): Observable<number> {
-        return this.http.delete<number>(this.url + 'reference/' + this.selected.reference);
+        return this.http.delete<number>(this.adminUrl + 'etat/reference/' + this.selected.reference);
     }
 
     public deleteMultipleByReference(): Observable<number> {
-        return this.http.post<number>(this.url + 'delete-multiple-by-reference', this.selectes);
+        return this.http.post<number>(this.adminUrl + 'etat/delete-multiple-by-reference', this.selectes);
     }
 
     public findIndexById(id: number): number {

@@ -4,17 +4,25 @@ import {Dictionary} from '../model/dictionary.model';
 import {Observable} from 'rxjs';
 import {LoginService} from './login.service';
 import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class DictionaryService {
+
+
+    private adminUrl = environment.adminUrl;
+
+
     constructor(private http: HttpClient, public serviceUser: LoginService) {
     }
+
     private _selectedNow: Dictionary;
-private _listSynonymes: Array<any>;
-private _Synonymes: Array<any>;
+    private _listSynonymes: Array<any>;
+    private _Synonymes: Array<any>;
     private _selected: Dictionary;
+
     get selectedNow(): Dictionary {
         if (this._selectedNow == null) {
             this._selectedNow = new Dictionary();
@@ -170,38 +178,38 @@ private _Synonymes: Array<any>;
     }
 
     public findAll(): Observable<Array<Dictionary>> {
-        return this.http.get<Array<Dictionary>>('http://localhost:8036/learn/dictionary/' + this.selected);
+        return this.http.get<Array<Dictionary>>(this.adminUrl + 'dictionary/' + this.selected);
     }
 
     public FindByWord(word: string): Observable<Dictionary> {
         console.log(this.serviceUser.etudiant.id);
         console.log(word);
         // tslint:disable-next-line:max-line-length
-        return this.http.get<Dictionary>('http://localhost:8036/learn/dictionary/word/' + word + '/Etudiant/id/' + this.serviceUser.etudiant.id);
+        return this.http.get<Dictionary>(this.adminUrl + 'dictionary/word/' + word + '/Etudiant/id/' + this.serviceUser.etudiant.id);
     }
 
     public deleteWord(word: string): Observable<number> {
         // tslint:disable-next-line:max-line-length
-        return this.http.delete<number>('http://localhost:8036/learn/dictionary/words/' + word + '/Etudiant/id/' + this.serviceUser.etudiant.id);
+        return this.http.delete<number>(this.adminUrl + 'dictionary/words/' + word + '/Etudiant/id/' + this.serviceUser.etudiant.id);
     }
 
     public FindAllWord(): Observable<Array<Dictionary>> {
         // tslint:disable-next-line:max-line-length
-        return this.http.get<Array<Dictionary>>('http://localhost:8036/learn/dictionary/etudiant/id/' + this.serviceUser.etudiant.id);
+        return this.http.get<Array<Dictionary>>(this.adminUrl + 'dictionary/etudiant/id/' + this.serviceUser.etudiant.id);
     }
 
     public Translate(word: string): Observable<Array<any>> {
         // tslint:disable-next-line:max-line-length
         // @ts-ignore
-        return this.http.get<Array<string>>('http://localhost:8036/learn/TranslateEnAr/text/synonymes/' + word, {responseType: 'text'});
+        return this.http.get<Array<string>>(this.adminUrl + 'TranslateEnAr/text/synonymes/' + word, {responseType: 'text'});
     }
 
     public save(): Observable<number> {
         console.log('this is save method data===>' + this.selected.definition);
-        return this.http.post<number>('http://localhost:8036/learn/dictionary/', this.selected);
+        return this.http.post<number>(this.adminUrl + 'dictionary/', this.selected);
     }
 
     public editDict(): Observable<number> {
-        return this.http.put<number>('http://localhost:8036/learn/dictionary/', this.selected);
+        return this.http.put<number>(this.adminUrl + 'dictionary/', this.selected);
     }
 }

@@ -5,8 +5,13 @@
 export const environment = {
   production: false,
   baseUrl: 'http://localhost:8036/learn/',
-  sectionItemUrl:'http://localhost:8036/learn/sectionItem/',
-  translationHost:'http://localhost:8036/learn/TranslateEnAr/text/translationFeatures/'
+  sectionItemUrl: 'http://localhost:8036/learn/sectionItem/',
+  translationHost: 'http://localhost:8036/learn/TranslateEnAr/text/translationFeatures/',
+  adminUrl: 'http://localhost:8036/admin/',
+  profUrl: 'http://localhost:8036/prof/',
+  etudiantUrl: 'http://localhost:8036/etudiant/',
+  publicUrl: 'http://localhost:8036/public/',
+  socketUrl: 'ws://localhost:8036/chat/',
 };
 
 /*

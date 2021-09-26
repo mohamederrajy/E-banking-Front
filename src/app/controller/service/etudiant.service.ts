@@ -16,6 +16,8 @@ import {LoginService} from './login.service';
     providedIn: 'root'
 })
 export class EtudiantService {
+
+    private adminUrl = environment.adminUrl;
     private url = environment.baseUrl + 'etudiant/';
 
     constructor(private http: HttpClient, public serviceUser: LoginService) {
@@ -215,30 +217,30 @@ export class EtudiantService {
     }
 
     public findAllCentre(): Observable<Array<Centre>> {
-        return this.http.get<Array<Centre>>('http://localhost:8036/learn/centre/');
+        return this.http.get<Array<Centre>>(this.adminUrl + 'centre/');
     }
 
     public findAllParcours(): Observable<Array<Parcours>> {
-        return this.http.get<Array<Parcours>>('http://localhost:8036/learn/parcours/');
+        return this.http.get<Array<Parcours>>(this.adminUrl + 'parcours/');
 
     }
 
     public findAllProf(): Observable<Array<Prof>> {
-        return this.http.get<Array<Prof>>('http://localhost:8036/learn/prof/');
+        return this.http.get<Array<Prof>>(this.adminUrl + 'prof/');
 
     }
 
     public findetudiantProf(): Observable<Array<Etudiant>> {
-        return this.http.get<Array<Etudiant>>('http://localhost:8036/learn/etudiant/prof/id/' + this.selectedProf.id);
+        return this.http.get<Array<Etudiant>>(this.adminUrl + 'etudiant/prof/id/' + this.selectedProf.id);
     }
 
     public findetudiantProf1(id: number): Observable<Array<Etudiant>> {
-        return this.http.get<Array<Etudiant>>('http://localhost:8036/learn/etudiant/prof/id/' + id);
+        return this.http.get<Array<Etudiant>>(this.adminUrl + 'etudiant/prof/id/' + id);
     }
 
     findByCriteria() {
         console.log(this.etudiantVo);
-        this.http.post<Array<Etudiant>>('http://localhost:8036/learn/etudiant/search', this.etudiantVo).subscribe(
+        this.http.post<Array<Etudiant>>(this.adminUrl + 'etudiant/search', this.etudiantVo).subscribe(
             data => {
                 console.log(data);
                 this.items = data;
@@ -249,15 +251,15 @@ export class EtudiantService {
     }
 
     public findAll(): Observable<Array<Etudiant>> {
-        return this.http.get<Array<Etudiant>>(this.url);
+        return this.http.get<Array<Etudiant>>(this.adminUrl + 'etudiant');
     }
 
     public deleteMultipleByNom(): Observable<number> {
-        return this.http.post<number>(this.url + 'delete-multiple-by-id', this.selectes);
+        return this.http.post<number>(this.adminUrl + 'delete-multiple-by-id', this.selectes);
     }
 
     public deleteByNom(): Observable<number> {
-        return this.http.delete<number>(this.url + 'id/' + this.selected.id);
+        return this.http.delete<number>(this.adminUrl + 'etudiant/id/' + this.selected.id);
     }
 
     public deleteMultipleIndexById() {
@@ -271,11 +273,11 @@ export class EtudiantService {
     }
 
     public edit(): Observable<Etudiant> {
-        return this.http.put<Etudiant>(this.url, this.selected);
+        return this.http.put<Etudiant>(this.adminUrl + 'etudiant', this.selected);
     }
 
     public save(): Observable<Etudiant> {
-        return this.http.post<Etudiant>(this.url, this.selected);
+        return this.http.post<Etudiant>(this.adminUrl + 'etudiant', this.selected);
     }
 
     public findIndexById(id: number): number {

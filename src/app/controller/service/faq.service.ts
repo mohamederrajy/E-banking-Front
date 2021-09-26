@@ -5,12 +5,13 @@ import {FaqProf} from '../model/faq-prof.model';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {FaqEtudiant} from '../model/faq-etudiant.modele';
+import {environment} from "../../../environments/environment";
 
 @Injectable({
     providedIn: 'root'
 })
 export class FaqService {
-    private url = 'http://localhost:8036/learn/';
+    private adminUrl = environment.adminUrl;
 
     constructor(private http: HttpClient) {
     }
@@ -150,72 +151,72 @@ export class FaqService {
     }
 
     public findTypes(destinataire): Observable<Array<FaqType>> {
-        return this.http.get<Array<FaqType>>(this.url + 'faqType/destinataire/' + destinataire);
+        return this.http.get<Array<FaqType>>(this.adminUrl + 'faqType/destinataire/' + destinataire);
     }
 
     public findFirstFaq(): Observable<Array<Faq>> {
-        return this.http.get<Array<Faq>>(this.url + 'faq/faqType/ref/ft1');
+        return this.http.get<Array<Faq>>(this.adminUrl + 'faq/faqType/ref/ft1');
     }
 
     public findByFaqType(id: number): Observable<Array<Faq>> {
-        return this.http.get<Array<Faq>>(this.url + 'faq/faqType/id/' + id);
+        return this.http.get<Array<Faq>>(this.adminUrl + 'faq/faqType/id/' + id);
     }
 
     public findFaqProf(): Observable<Array<FaqProf>> {
-        return this.http.get<Array<FaqProf>>(this.url + 'faqProf/');
+        return this.http.get<Array<FaqProf>>(this.adminUrl + 'faqProf/');
     }
 
     public findFaqEtudiant(): Observable<Array<FaqEtudiant>> {
-        return this.http.get<Array<FaqEtudiant>>(this.url + 'faqEtudiant/');
+        return this.http.get<Array<FaqEtudiant>>(this.adminUrl + 'faqEtudiant/');
     }
 
     public saveFaqProf(faqProf: FaqProf): Observable<FaqProf> {
-        return this.http.post<FaqProf>(this.url + 'faqProf/', faqProf);
+        return this.http.post<FaqProf>(this.adminUrl + 'faqProf/', faqProf);
     }
 
     public findMyQuestions(prof: number, type: number): Observable<Array<FaqProf>> {
-        return this.http.get<Array<FaqProf>>(this.url + 'faqProf/critere/prof/' + prof + '/type/' + type);
+        return this.http.get<Array<FaqProf>>(this.adminUrl + 'faqProf/critere/prof/' + prof + '/type/' + type);
     }
 
     public updateFaqrof(faqProf: FaqProf): Observable<FaqProf> {
-        return this.http.put<FaqProf>(this.url + 'faqProf/', faqProf);
+        return this.http.put<FaqProf>(this.adminUrl + 'faqProf/', faqProf);
     }
 
     public findFaqProfById(id: number): Observable<FaqProf> {
-        return this.http.get<FaqProf>(this.url + 'faqProf/id/' + id);
+        return this.http.get<FaqProf>(this.adminUrl + 'faqProf/id/' + id);
     }
 
     //////////
 
     public findFaqProfByLibelle(libelle: string): Observable<FaqProf> {
-        return this.http.get<FaqProf>(this.url + 'faqProf/libelle/' + libelle);
+        return this.http.get<FaqProf>(this.adminUrl + 'faqProf/libelle/' + libelle);
     }
 
     public saveFaqEtudiant(faqEtudiant: FaqEtudiant): Observable<FaqProf> {
-        return this.http.post<FaqProf>(this.url + 'faqEtudiant/', faqEtudiant);
+        return this.http.post<FaqProf>(this.adminUrl + 'faqEtudiant/', faqEtudiant);
     }
 
     public findMyQuestionsEtudiant(etudiant: number, type: number): Observable<Array<FaqEtudiant>> {
-        return this.http.get<Array<FaqEtudiant>>(this.url + 'faqEtudiant/critere/etudiant/' + etudiant + '/type/' + type);
+        return this.http.get<Array<FaqEtudiant>>(this.adminUrl + 'faqEtudiant/critere/etudiant/' + etudiant + '/type/' + type);
     }
 
     public updateFaqEtudiant(faqEtudiant: FaqEtudiant): Observable<FaqProf> {
-        return this.http.put<FaqProf>(this.url + 'faqEtudiant/', faqEtudiant);
+        return this.http.put<FaqProf>(this.adminUrl + 'faqEtudiant/', faqEtudiant);
     }
 
     public findFaqEtudiantById(id: number): Observable<FaqProf> {
-        return this.http.get<FaqProf>(this.url + 'faqEtudiant/id/' + id);
+        return this.http.get<FaqProf>(this.adminUrl + 'faqEtudiant/id/' + id);
     }
 
     /*public findByRef(): Observable<FaqType> {
-      return this.http.get<FaqType>(this.url + 'ref/' + this.selected.ref);
+      return this.http.get<FaqType>(this.adminUrl + 'ref/' + this.selected.ref);
     }*/
 
     public findFaqEtudiantByLibelle(libelle: string): Observable<FaqEtudiant> {
-        return this.http.get<FaqEtudiant>(this.url + 'faqEtudiant/libelle/' + libelle);
+        return this.http.get<FaqEtudiant>(this.adminUrl + 'faqEtudiant/libelle/' + libelle);
     }
 
     public save(faq: Faq): Observable<Faq> {
-        return this.http.post<Faq>(this.url + 'faq/', faq);
+        return this.http.post<Faq>(this.adminUrl + 'faq/', faq);
     }
 }

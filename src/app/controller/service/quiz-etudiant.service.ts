@@ -12,13 +12,16 @@ import {EtudiantClassRoom} from '../model/etudiant-class-room.model';
 import {QuizClassRoom} from '../model/quiz-class-room.model';
 import {ClassRoom} from '../model/class-room.model';
 import {Section} from '../model/section.model';
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuizEtudiantService {
 
-  private url = 'http://localhost:8036/learn/';
+  private adminUrl = environment.adminUrl;
+
+
   private _etudiant: Etudiant;
   private _quiz: Quiz;
   private _section: Section;
@@ -409,161 +412,161 @@ export class QuizEtudiantService {
 
   public findEtudiant(): Observable<Etudiant>
   {
-    return this.http.get<Etudiant>(this.url + 'etudiant/ref/e1');
+    return this.http.get<Etudiant>(this.adminUrl + 'etudiant/ref/e1');
   }
 
   public findQuiz(): Observable<Quiz>
   {
-    return this.http.get<Quiz>(this.url + 'quiz/ref/quiz1');
+    return this.http.get<Quiz>(this.adminUrl + 'quiz/ref/quiz1');
   }
 
   public findFirstQuestion(): Observable<Question>
   {
-    return this.http.get<Question>(this.url + 'question/numero/1');
+    return this.http.get<Question>(this.adminUrl + 'question/numero/1');
   }
 
   /////////////////////
   public findQuestion(quiz: string, numero: number): Observable<Question>
   {
-    return this.http.get<Question>(this.url + 'question/quiz/ref/' + quiz + '/numero/' + numero);
+    return this.http.get<Question>(this.adminUrl + 'question/quiz/ref/' + quiz + '/numero/' + numero);
   }
 
   public findAllQuestions(quiz: string): Observable<Array<Question>>
   {
-    return this.http.get<Array<Question>>(this.url + 'question/quiz/ref/' + quiz);
+    return this.http.get<Array<Question>>(this.adminUrl + 'question/quiz/ref/' + quiz);
   }
 
   public findReponses(question: number): Observable<Array<Reponse>>
   {
-    return this.http.get<Array<Reponse>>(this.url + 'reponse/question/id/' + question);
+    return this.http.get<Array<Reponse>>(this.adminUrl + 'reponse/question/id/' + question);
   }
 
   public findCorrectAnswers(questionId: number): Observable<Array<Reponse>>
   {
-    return this.http.get<Array<Reponse>>(this.url + 'reponse/criteria/id/' + questionId);
+    return this.http.get<Array<Reponse>>(this.adminUrl + 'reponse/criteria/id/' + questionId);
   }
 
   public findQuizBySection(id: number): Observable<Quiz>
   {
-    return this.http.get<Quiz>(this.url + 'quiz/section/id/' + id);
+    return this.http.get<Quiz>(this.adminUrl + 'quiz/section/id/' + id);
   }
 
   public findQuizEtudiantByQuiz(ref: string): Observable<Array<QuizEtudiant>>
   {
-    return this.http.get<Array<QuizEtudiant>>(this.url + 'quizEtudiant/quiz/ref/' + ref);
+    return this.http.get<Array<QuizEtudiant>>(this.adminUrl + 'quizEtudiant/quiz/ref/' + ref);
   }
 
   public deleteQuizEtudiant(quizEtudiant: QuizEtudiant): Observable<QuizEtudiant>
   {
-    return this.http.delete<QuizEtudiant>(this.url + 'quizEtudiant/id/' + quizEtudiant.id);
+    return this.http.delete<QuizEtudiant>(this.adminUrl + 'quizEtudiant/id/' + quizEtudiant.id);
   }
 
   public findMyAnswerEtudiant(quizEtudiant: QuizEtudiant, question: Question): Observable<Array<ReponseEtudiant>>
   {
-    return this.http.get<Array<ReponseEtudiant>>(this.url + 'reponseEtudiant/creteria/quizEtudiant/id/' + quizEtudiant.id + '/question/id/' + question.id);
+    return this.http.get<Array<ReponseEtudiant>>(this.adminUrl + 'reponseEtudiant/creteria/quizEtudiant/id/' + quizEtudiant.id + '/question/id/' + question.id);
   }
 ///////////////////
   public findAllQuizEtudiant(): Observable<Array<QuizEtudiant>>
   {
-    return this.http.get<Array<QuizEtudiant>>(this.url + 'quizEtudiant/');
+    return this.http.get<Array<QuizEtudiant>>(this.adminUrl + 'quizEtudiant/');
   }
   public findFirstQuizEtudiant(): Observable<QuizEtudiant>
   {
-    return this.http.get<QuizEtudiant>(this.url + 'quizEtudiant/ref/qe1');
+    return this.http.get<QuizEtudiant>(this.adminUrl + 'quizEtudiant/ref/qe1');
   }
   public findQuizSection(): Observable<Quiz>
   {
-    return this.http.get<Quiz>(this.url + 'quiz/section/id/' + this.section.id);
+    return this.http.get<Quiz>(this.adminUrl + 'quiz/section/id/' + this.section.id);
   }
 
   public insertQuizEtudiant(): Observable<QuizEtudiant>
   {
-    return this.http.post<QuizEtudiant>(this.url + 'quizEtudiant/' , this.quizEtudiant);
+    return this.http.post<QuizEtudiant>(this.adminUrl + 'quizEtudiant/' , this.quizEtudiant);
   }
 
   public insertReponseEtudiant(reponseEtudiant: ReponseEtudiant): Observable<ReponseEtudiant>
   {
-    return this.http.post<ReponseEtudiant>(this.url + 'reponseEtudiant/' , reponseEtudiant);
+    return this.http.post<ReponseEtudiant>(this.adminUrl + 'reponseEtudiant/' , reponseEtudiant);
   }
 
   public findAllReponseEtudiant(): Observable<Array<ReponseEtudiant>>
   {
-    return this.http.get<Array<ReponseEtudiant>>(this.url + 'reponseEtudiant/');
+    return this.http.get<Array<ReponseEtudiant>>(this.adminUrl + 'reponseEtudiant/');
   }
 
   public findFirstReponseEtudiant(): Observable<ReponseEtudiant>
   {
-    return this.http.get<ReponseEtudiant>(this.url + 'reponseEtudiant/ref/re1');
+    return this.http.get<ReponseEtudiant>(this.adminUrl + 'reponseEtudiant/ref/re1');
   }
 
   public findMyAnswer(id: number): Observable<Reponse>
   {
-    return this.http.get<Reponse>(this.url + 'reponse/id/' + id);
+    return this.http.get<Reponse>(this.adminUrl + 'reponse/id/' + id);
   }
 
   public updateQuizEtudiant(): Observable<QuizEtudiant>
   {
-    return this.http.put<QuizEtudiant>(this.url + 'quizEtudiant/' , this.quizEtudiant);
+    return this.http.put<QuizEtudiant>(this.adminUrl + 'quizEtudiant/' , this.quizEtudiant);
   }
 
   public findEtudiantClassRoom(etudiant: Etudiant): Observable<Array<EtudiantClassRoom>>
   {
-    return this.http.get<Array<EtudiantClassRoom>>(this.url + 'etudiant-classRoom/etudiant/ref/' + etudiant.ref);
+    return this.http.get<Array<EtudiantClassRoom>>(this.adminUrl + 'etudiant-classRoom/etudiant/ref/' + etudiant.ref);
   }
 
   public findQuizClassRoom(classroom: ClassRoom): Observable<Array<QuizClassRoom>>
   {
-    return this.http.get<Array<QuizClassRoom>>(this.url + 'quiz-classRoom/id/' + classroom.id);
+    return this.http.get<Array<QuizClassRoom>>(this.adminUrl + 'quiz-classRoom/id/' + classroom.id);
   }
 
   public findQuizEtudiant(etudiant: Etudiant, quiz: Quiz): Observable<QuizEtudiant>
   {
-    return this.http.get<QuizEtudiant>(this.url + 'quizEtudiant/etudiant/' + etudiant.ref + '/quiz/' + quiz.ref);
+    return this.http.get<QuizEtudiant>(this.adminUrl + 'quizEtudiant/etudiant/' + etudiant.ref + '/quiz/' + quiz.ref);
   }
 
   public findReponseEtudiant(quizEtudiant: QuizEtudiant): Observable<Array<ReponseEtudiant>>
   {
-    return this.http.get<Array<ReponseEtudiant>>(this.url + 'reponseEtudiant/quizEtudiant/ref/' + quizEtudiant.ref);
+    return this.http.get<Array<ReponseEtudiant>>(this.adminUrl + 'reponseEtudiant/quizEtudiant/ref/' + quizEtudiant.ref);
   }
 
   public findMyReponseEtudiant(quizEtudiant: QuizEtudiant, reponse: Reponse): Observable<ReponseEtudiant>
   {
     // tslint:disable-next-line:max-line-length
-    return this.http.get<ReponseEtudiant>(this.url + 'reponseEtudiant/critere/quizEtudiant/{refQuizEtudiant}/reponse/{refReponse}?refQuizEtudiant=' + quizEtudiant.ref + '&refReponse=' + reponse.ref);
+    return this.http.get<ReponseEtudiant>(this.adminUrl + 'reponseEtudiant/critere/quizEtudiant/{refQuizEtudiant}/reponse/{refReponse}?refQuizEtudiant=' + quizEtudiant.ref + '&refReponse=' + reponse.ref);
   }
 
   public findQuestionByNumero(numero: number): Observable<Question>
   {
-    return this.http.get<Question>(this.url + 'question/numero/' + numero);
+    return this.http.get<Question>(this.adminUrl + 'question/numero/' + numero);
   }
 
   public findReponseByNumero(numero: number): Observable<Array<Reponse>>
   {
-    return this.http.get<Array<Reponse>>(this.url + 'reponse/question/numero/' + numero);
+    return this.http.get<Array<Reponse>>(this.adminUrl + 'reponse/question/numero/' + numero);
   }
 
   public findReponseEtudiantByNumero(quizEtudiant: QuizEtudiant, numero: number): Observable<Array<ReponseEtudiant>>
   {
     // tslint:disable-next-line:max-line-length
-    return this.http.get<Array<ReponseEtudiant>>(this.url + 'reponseEtudiant/creteria/quizEtudiant/' + quizEtudiant.ref + '/question/' + numero);
+    return this.http.get<Array<ReponseEtudiant>>(this.adminUrl + 'reponseEtudiant/creteria/quizEtudiant/' + quizEtudiant.ref + '/question/' + numero);
   }
   public findCorrectAnswersByNumero(numero: number): Observable<Array<Reponse>>
   {
-    return this.http.get<Array<Reponse>>(this.url + 'reponse/criteria/numero/' + numero);
+    return this.http.get<Array<Reponse>>(this.adminUrl + 'reponse/criteria/numero/' + numero);
   }
 
   public findQuizBySectionId(section: Section): Observable<Quiz>
   {
-    return this.http.get<Quiz>(this.url + 'quiz/section/id/' + section.id);
+    return this.http.get<Quiz>(this.adminUrl + 'quiz/section/id/' + section.id);
   }
   public findAllQuiz(): Observable<Array<Quiz>>
   {
-    return this.http.get<Array<Quiz>>(this.url + 'quiz/');
+    return this.http.get<Array<Quiz>>(this.adminUrl + 'quiz/');
   }
 
   public translate(word: string): Observable<any> {
     // @ts-ignore
-    return this.http.get<string>('http://localhost:8036/learn/TranslateEnAr/text/' + word , {responseType: 'text'});
+    return this.http.get<string>(this.adminUrl + 'TranslateEnAr/text/' + word , {responseType: 'text'});
   }
   constructor(private http: HttpClient) { }
 }
