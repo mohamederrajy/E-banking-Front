@@ -165,7 +165,7 @@ export class SectionSimulateComponent implements OnInit {
     public quiz() {
         this.serviceQuiz.refQuiz = this.selectedQuiz.ref;
         console.log(this.serviceQuiz.refQuiz);
-        this.router.navigate(['/prof/quiz-preview']);
+        this.router.navigate(['/prof/quiz-preview-teacher']);
     }
 
     public dict() {

@@ -206,7 +206,7 @@ export class SectionListComponent implements OnInit {
                 } else {
                     this.serviceQuiz.refQuiz = this.selectedQuiz.ref;
                     console.log(this.serviceQuiz.refQuiz);
-                    this.router.navigate(['admin/quiz-preview']);
+                    this.router.navigate(['admin/quiz-preview-prof']);
                 }
             }, error => {
                 // tslint:disable-next-line:no-unused-expression

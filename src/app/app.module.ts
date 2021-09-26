@@ -219,6 +219,7 @@ import { VocabularySectionItemProfComponent } from './view/prof/learn-teacher/vo
 import {SyntheseSessionComponent} from "./view/prof/synthese-session/synthese-session.component";
 import {SyntheseSessionCoursCreateComponent} from "./view/prof/synthese-session/synthese-session-cours-create/synthese-session-cours-create.component";
 import {ProfReviewViewComponent} from "./view/prof/learn-teacher/prof-review-view/prof-review-view.component";
+import {QuizPreviewProfComponent} from './view/prof/quiz-preview-prof/quiz-preview.component';
 
 
 @NgModule({
@@ -444,7 +445,8 @@ import {ProfReviewViewComponent} from "./view/prof/learn-teacher/prof-review-vie
         ProfReviewViewComponent,
         SessionCoursCreateComponent,
         SessionCoursListComponent,
-        SessionCoursViewComponent
+        SessionCoursViewComponent,
+        QuizPreviewProfComponent
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},

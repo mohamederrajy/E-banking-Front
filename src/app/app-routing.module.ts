@@ -50,6 +50,7 @@ import {PublicComponent} from './view/public/public.component';
 import {ProfComponent} from './view/prof/prof.component';
 import {EtudiantComponent} from './view/etudiant/etudiant.component';
 import {SyntheseSessionComponent} from './view/prof/synthese-session/synthese-session.component';
+import {QuizPreviewProfComponent} from './view/prof/quiz-preview-prof/quiz-preview.component';
 
 
 @NgModule({
@@ -60,7 +61,7 @@ import {SyntheseSessionComponent} from './view/prof/synthese-session/synthese-se
                     {path: 'parcours', component: LearnComponent},
                     {path: 'create-section-items', component: SectionItemComponent},
                     {path: 'preview-section-items', component: SectionItemPreviewComponent},
-                    {path: 'quiz-preview', component: QuizPreviewComponent},
+                    {path: 'quiz-preview-prof', component: QuizPreviewComponent},
                     {path: 'quiz-create', component: QuizCreateComponent},
                     {path: 'quiz-update', component: QuizUpdateComponent},
                     {path: 'view-quiz-etudiant', component: ViewQuizEtudiantComponent},
@@ -78,7 +79,7 @@ import {SyntheseSessionComponent} from './view/prof/synthese-session/synthese-se
             {path:'prof',component: ProfComponent,
                 children:[
                     {path: 'home', component: HomeComponent},
-                    {path: 'quiz-preview', component: QuizPreviewComponent},
+                    {path: 'quiz-preview-prof', component: QuizPreviewComponent},
                     {path: 'courses', component: EdCoursesComponent},
                     {path: 'recommendation-teacher', component: RecommendationTeacherComponent},
                     {path: 'salary', component: SalaryComponent},
@@ -91,6 +92,7 @@ import {SyntheseSessionComponent} from './view/prof/synthese-session/synthese-se
                     {path: 'sections-simulate', component: SectionSimulateComponent},
                     {path: 'sections', component: SectionsComponent},
                     {path: 'cours', component: CoursesComponent},
+                    {path: 'quiz-preview-teacher', component: QuizPreviewProfComponent},
                 ]
             },
             {path:'etudiant',component: EtudiantComponent,

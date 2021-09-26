@@ -1295,7 +1295,7 @@ export class QuizTakeComponent implements OnInit {
               },
           );
         },error => console.log('erreeeeeeeeeeeeeeeeur') );
-    this.router.navigate(['/etudiant/etudiantsimulatesections']);
+    this.router.navigate(['/etudiant/etudiant-simulate-sections']);
   }
 
   public dictEdit(dict: Dictionary){

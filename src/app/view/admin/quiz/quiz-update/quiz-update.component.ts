@@ -507,7 +507,7 @@ export class QuizUpdateComponent implements OnInit {
     }
 
     openPreview() {
-        this.router.navigate(['admin/quiz-preview']);
+        this.router.navigate(['admin/quiz-preview-prof']);
     }
 
     private initCol() {
