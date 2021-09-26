@@ -477,19 +477,6 @@ export class QuizPreviewProfComponent implements OnInit {
                 document.getElementById('word').style.height = '0px';
                 document.getElementById('chat').style.visibility = 'visible';
             }},
-        { icon: 'pi pi-book', style: {width: '50%'}, command: (event) => {
-                this.dictionnaryService.FindAllWord().subscribe(
-                    data => {
-                        this.itemsDict = data;
-                    });
-                document.getElementById('categoriess').style.visibility = 'hidden';
-                document.getElementById('categoriess').style.height = '0px';
-                document.getElementById('word').style.visibility = 'visible';
-                document.getElementById('word').style.width = '100%';
-                document.getElementById('word').style.height = '100%';
-                document.getElementById('wrd').style.height = '100%';
-                document.getElementById('chat').style.visibility = 'hidden';
-            }},
     ];
   }
 
