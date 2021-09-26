@@ -12,6 +12,7 @@ import {Router} from '@angular/router';
 import {Dictionary} from '../../../../controller/model/dictionary.model';
 import {DictionaryService} from '../../../../controller/service/dictionary.service';
 import {EtudiantReviewService} from '../../../../controller/service/etudiant-review.service';
+import {SectionItemService} from "../../../../controller/service/section-item.service";
 
 @Pipe({name: 'safe'})
 export class SafePipe1 implements PipeTransform {
@@ -37,7 +38,7 @@ export class SectionSimulateComponent implements OnInit {
     word: string;
 
     // tslint:disable-next-line:max-line-length
-    constructor(private messageService: MessageService, private dictionnaryService: DictionaryService, private router: Router, private serviceQuiz: QuizService, private sanitizer: DomSanitizer, private quizService: QuizEtudiantService, private confirmationService: ConfirmationService, private service: ParcoursService, private http: HttpClient, private review: EtudiantReviewService) {
+    constructor(private sectionItemService: SectionItemService , private messageService: MessageService, private dictionnaryService: DictionaryService, private router: Router, private serviceQuiz: QuizService, private sanitizer: DomSanitizer, private quizService: QuizEtudiantService, private confirmationService: ConfirmationService, private service: ParcoursService, private http: HttpClient, private review: EtudiantReviewService) {
     }
 
     get image(): string {
@@ -155,6 +156,11 @@ export class SectionSimulateComponent implements OnInit {
         this.service.afficheSection(libelle).subscribe(
             data => {
                 this.selectedsection = data;
+                if (data.categorieSection.libelle === 'Vocabulary') {
+                    this.Vocab(data);
+                } else {
+                    this.showVocabulary=false
+                }
                 this.quizService.findQuizBySection(this.selectedsection.id).subscribe(
                     data => {
                         this.selectedQuiz = data;
@@ -262,6 +268,11 @@ export class SectionSimulateComponent implements OnInit {
         if (this.selectedsection.numeroOrder != 0) {
             this.service.afficheOneSection2().subscribe(data => {
                 this.selectedsection = data;
+                if (data.categorieSection.libelle === 'Vocabulary') {
+                    this.Vocab(data);
+                } else {
+                    this.showVocabulary=false
+                }
                 this.quizService.findQuizBySection(this.selectedsection.id).subscribe(
                     data => {
                         this.selectedQuiz = data;
@@ -337,6 +348,11 @@ export class SectionSimulateComponent implements OnInit {
             this.service.afficheOneSection2().subscribe(
                 data => {
                     this.selectedsection = data;
+                    if (data.categorieSection.libelle === 'Vocabulary') {
+                        this.Vocab(data);
+                    } else {
+                        this.showVocabulary=false
+                    }
                     this.quizService.findQuizBySection(this.selectedsection.id).subscribe(
                         data => {
                             this.selectedQuiz = data;
@@ -347,4 +363,27 @@ export class SectionSimulateComponent implements OnInit {
             this.PreviousSection();
         }
     }
+
+    get showVocabulary(): boolean {
+        return this.sectionItemService.showVocabulary;
+    }
+
+    set showVocabulary(value: boolean) {
+        this.sectionItemService.showVocabulary = value;
+    }
+
+    Vocab(section: Section) {
+        this.sectionItemService.sectionSelected = section;
+
+        this.sectionItemService.getSectionItems().subscribe(data => {
+            this.sectionItemService.sectionSelected.sectionItems = data;
+            console.log(data);
+            this.showVocabulary=true
+        });
+
+    }
+    return($event: string) {
+        this.showVocabulary=false
+    }
+
 }
