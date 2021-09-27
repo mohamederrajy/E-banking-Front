@@ -251,7 +251,7 @@ export class EtudiantService {
     }
 
     public findAll(): Observable<Array<Etudiant>> {
-        return this.http.get<Array<Etudiant>>(this.adminUrl + 'etudiant');
+        return this.http.get<Array<Etudiant>>(this.adminUrl + 'etudiant/');
     }
 
     public deleteMultipleByNom(): Observable<number> {
@@ -273,11 +273,11 @@ export class EtudiantService {
     }
 
     public edit(): Observable<Etudiant> {
-        return this.http.put<Etudiant>(this.adminUrl + 'etudiant', this.selected);
+        return this.http.put<Etudiant>(this.adminUrl + 'etudiant/', this.selected);
     }
 
     public save(): Observable<Etudiant> {
-        return this.http.post<Etudiant>(this.adminUrl + 'etudiant', this.selected);
+        return this.http.post<Etudiant>(this.adminUrl + 'etudiant/', this.selected);
     }
 
     public findIndexById(id: number): number {

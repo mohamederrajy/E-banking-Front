@@ -51,6 +51,7 @@ import {ProfComponent} from './view/prof/prof.component';
 import {EtudiantComponent} from './view/etudiant/etudiant.component';
 import {SyntheseSessionComponent} from './view/prof/synthese-session/synthese-session.component';
 import {QuizPreviewProfComponent} from './view/prof/quiz-preview-prof/quiz-preview.component';
+import {EtudiantsComponent} from "./view/admin/etudiants/etudiants.component";
 
 
 @NgModule({
@@ -74,6 +75,7 @@ import {QuizPreviewProfComponent} from './view/prof/quiz-preview-prof/quiz-previ
                     {path: 'news-admin', component: NewsAdminListComponent},
                     {path: 'schedule', component: ScheduleAdminComponent},
                     {path: 'faq-create', component: FaqCreateComponent},
+                    {path: 'students-List', component: EtudiantsComponent},
                 ]
             },
             {path:'prof',component: ProfComponent,

@@ -92,11 +92,11 @@ export class EtudiantEditComponent implements OnInit {
 
     public edit() {
         this.submitted = true;
-        if (this.selected.nom.trim()) {
-            if (this.selected.id) {
+
                 this.items[this.service.findIndexById(this.selected.id)] = this.selected;
                 this.service.edit().subscribe(data => {
                     this.selected = data;
+                    this.service.findAll();
                     this.messageService.add({
                         severity: 'success',
                         summary: 'Successful',
@@ -104,10 +104,8 @@ export class EtudiantEditComponent implements OnInit {
                         life: 3000
                     });
                 });
-            }
             this.editDialog = false;
             this.selected = new Etudiant();
-        }
     }
 
     public hideEditDialog() {
