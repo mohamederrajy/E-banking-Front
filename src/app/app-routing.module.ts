@@ -3,9 +3,7 @@ import {NgModule} from '@angular/core';
 
 
 import {DashboardDemoComponent} from './view/public/landing/dashboarddemo.component';
-import {AdminComponent} from './view/admin/admin.component';
 import {PublicComponent} from './view/public/public.component';
-import {EtudiantComponent} from './view/etudiant/etudiant.component';
 import {LoginAgentComponent} from "./view/public/login-agent/login-agent.component";
 import {ClientManagementComponent} from "./view/agent/client-management/client-management.component";
 import {TransactionEmissionComponent} from "./view/agent/transaction-emission/transaction-emission.component";
@@ -20,12 +18,14 @@ import {TransactionDebloquageComponent} from "./view/admine/transaction-debloqua
 import {TransactionNotificationComponent} from "./view/admine/transaction-notification/transaction-notification.component";
 import {PlafondConfigComponent} from "./view/admine/plafond-config/plafond-config.component";
 import {CommissionComponent} from "./view/admine/commission/commission.component";
+import {AgentComponent} from "./view/agent/agent.component";
+import {AdmineComponent} from "./view/admine/admine.component";
 
 
 @NgModule({
     imports: [
         RouterModule.forRoot([
-            {path:'admin',component: AdminComponent,
+            {path:'admin',component: AdmineComponent,
                 children:[
                     {path: 'transaction-consultation', component: TransactionConsultationComponent},
                     {path: 'transaction-bloque', component: TransactionBloquageComponent},
@@ -35,7 +35,7 @@ import {CommissionComponent} from "./view/admine/commission/commission.component
                     {path: 'commission', component: CommissionComponent},
                 ]
             },
-            {path:'agent',component: EtudiantComponent,
+            {path:'agent',component: AgentComponent,
                 children:[
                     {path: 'client-management', component: ClientManagementComponent},
                     {path: 'transaction-emission', component: TransactionEmissionComponent},
