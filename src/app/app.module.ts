@@ -93,7 +93,6 @@ import {AppMenuComponent} from './view/shared/slide-bar/app.menu.component';
 import {AppMenuitemComponent} from './view/shared/slide-bar/app.menuitem.component';
 import {AppTopBarComponent} from './view/shared/top-bar/app.topbar.component';
 import {AppFooterComponent} from './view/shared/footer/app.footer.component';
-import {FormLayoutDemoComponent} from './view/public/Inscription-student/formlayoutdemo.component';
 
 import {MenuService} from './view/shared/slide-bar/app.menu.service';
 
@@ -137,15 +136,10 @@ import {NewsTeacherListComponent} from './view/prof/news/news-teacher-list/news-
 import {NewsTeacherViewComponent} from './view/prof/news/news-teacher-view/news-teacher-view.component';
 import {FaqListComponent} from './view/prof/faq/faq-list/faq-list.component';
 import {FaqContactComponent} from './view/prof/faq/faq-contact/faq-contact.component';
-import {LoginEtudiantComponent} from './view/public/login-etudiant/login-etudiant.component';
-import {LoginProfComponent} from './view/public/login-prof/login-prof.component';
-import {LoginAdminComponent} from './view/public/login-admin/login-admin.component';
 import {SafePipe1, SectionSimulateComponent} from './view/prof/learn-teacher/section-simulate/section-simulate.component';
 import {ChooseViewComponent} from './view/prof/learn-teacher/choose-view/choose-view.component';
-import {InscriptionAdminComponent} from './view/public/inscription-admin/inscription-admin.component';
 import {ParcoursCreateComponent} from './view/admin/learn/parcours-create/parcours-create.component';
 import {CoursCreateComponent} from './view/admin/learn/cours-create/cours-create.component';
-import {InscriptionProfComponent} from './view/public/inscription-prof/inscription-prof.component';
 import {HomeTeacherComponent} from './view/prof/home-teacher/home-teacher.component';
 import {TeacherRubComponent} from './view/prof/home-teacher/teacher-rub/teacher-rub.component';
 import {ProfNewsComponent} from './view/prof/home-teacher/prof-news/prof-news.component';
@@ -220,7 +214,22 @@ import {SyntheseSessionComponent} from "./view/prof/synthese-session/synthese-se
 import {SyntheseSessionCoursCreateComponent} from "./view/prof/synthese-session/synthese-session-cours-create/synthese-session-cours-create.component";
 import {ProfReviewViewComponent} from "./view/prof/learn-teacher/prof-review-view/prof-review-view.component";
 import {QuizPreviewProfComponent} from './view/prof/quiz-preview-prof/quiz-preview.component';
-
+import { AgentComponent } from './view/agent/agent.component';
+import { TransactionEmissionComponent } from './view/agent/transaction-emission/transaction-emission.component';
+import { TransactionServirComponent } from './view/agent/transaction-servir/transaction-servir.component';
+import { TransactionExtournComponent } from './view/agent/transaction-extourn/transaction-extourn.component';
+import { TransactionRestitutionComponent } from './view/agent/transaction-restitution/transaction-restitution.component';
+import { TransactionHistoriqueComponent } from './view/agent/transaction-historique/transaction-historique.component';
+import { ClientManagementComponent } from './view/agent/client-management/client-management.component';
+import { LoginAgentComponent } from './view/public/login-agent/login-agent.component';
+import { LoginAdmineComponent } from './view/public/login-admine/login-admine.component';
+import { AdmineComponent } from './view/admine/admine.component';
+import { TransactionConsultationComponent } from './view/admine/transaction-consultation/transaction-consultation.component';
+import { TransactionBloquageComponent } from './view/admine/transaction-bloquage/transaction-bloquage.component';
+import { TransactionDebloquageComponent } from './view/admine/transaction-debloquage/transaction-debloquage.component';
+import { TransactionNotificationComponent } from './view/admine/transaction-notification/transaction-notification.component';
+import { PlafondConfigComponent } from './view/admine/plafond-config/plafond-config.component';
+import { CommissionComponent } from './view/admine/commission/commission.component';
 
 @NgModule({
     imports: [
@@ -317,7 +326,6 @@ import {QuizPreviewProfComponent} from './view/prof/quiz-preview-prof/quiz-previ
         AppMenuitemComponent,
         AppTopBarComponent,
         AppFooterComponent,
-        FormLayoutDemoComponent,
         LearnComponent,
         ParcoursListComponent,
         ParcoursEditComponent,
@@ -361,14 +369,10 @@ import {QuizPreviewProfComponent} from './view/prof/quiz-preview-prof/quiz-previ
         NewsTeacherViewComponent,
         FaqListComponent,
         FaqContactComponent,
-        LoginEtudiantComponent,
-        LoginProfComponent,
-        LoginAdminComponent,
         ChooseViewComponent,
         SectionSimulateComponent,
         ParcoursCreateComponent,
         CoursCreateComponent,
-        InscriptionAdminComponent,
         HomeTeacherComponent,
         TeacherRubComponent,
         ProfNewsComponent,
@@ -380,7 +384,6 @@ import {QuizPreviewProfComponent} from './view/prof/quiz-preview-prof/quiz-previ
         RecommendListComponent,
         RecommendViewComponent,
         QuizCreateComponent,
-        InscriptionProfComponent,
         QuizEtudiantViewComponent,
         SessionCoursEditComponent,
         SessionCoursCreateComponent,
@@ -446,7 +449,24 @@ import {QuizPreviewProfComponent} from './view/prof/quiz-preview-prof/quiz-previ
         SessionCoursCreateComponent,
         SessionCoursListComponent,
         SessionCoursViewComponent,
-        QuizPreviewProfComponent
+        QuizPreviewProfComponent,
+        AgentComponent,
+        TransactionEmissionComponent,
+        TransactionServirComponent,
+        TransactionExtournComponent,
+        TransactionRestitutionComponent,
+        TransactionHistoriqueComponent,
+        ClientManagementComponent,
+        LoginAgentComponent,
+        LoginAdmineComponent,
+        AdmineComponent,
+        TransactionConsultationComponent,
+        TransactionBloquageComponent,
+        TransactionDebloquageComponent,
+        TransactionNotificationComponent,
+        PlafondConfigComponent,
+        CommissionComponent,
+
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
