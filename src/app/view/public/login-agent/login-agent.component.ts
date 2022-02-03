@@ -68,9 +68,10 @@ export class LoginAgentComponent implements OnInit {
       {label: 'Client Management', icon: 'pi pi-fw pi-user-edit', routerLink: ['/agent/client-management']},
       {label: 'Transaction Emission', icon: 'pi pi-fw pi-wallet', routerLink: ['/agent/transaction-emission']},
       {label: 'Transaction Servir', icon: 'pi pi-fw pi-check-circle', routerLink: ['/agent/transaction-servir']},
+      
       {label: 'Transaction Extourn', icon: 'pi pi-fw pi-power-off', routerLink: ['/agent/transaction-extourn']},
       {label: 'Transaction Restitution', icon: 'pi pi-fw pi-replay', routerLink: ['/agent/transaction-restitution']},
-      {label: 'Transaction Historique', icon: 'pi pi-fw pi-history', routerLink: ['/agent/transaction-historique']},
+      {label: 'Transaction Historique', icon: 'pi pi-fw pi-check-circle', routerLink: ['/agent/transaction-historique']},
       {label: 'LogOut ', icon: 'pi pi-fw pi-sign-out', routerLink: ['']},
     ];
     this.router.navigate(['agent/client-management']);

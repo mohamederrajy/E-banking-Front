@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Product } from './Product';
 
 @Component({
   selector: 'app-transaction-historique',
@@ -7,7 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TransactionHistoriqueComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+    
+   }
+
+   productDialog: boolean;
+
+    products: Product[];
+
+    product: Product;
+
+    selectedProducts: Product[];
+
+    submitted: boolean;
 
   ngOnInit(): void {
   }

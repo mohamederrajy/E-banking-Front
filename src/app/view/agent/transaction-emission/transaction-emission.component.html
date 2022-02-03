@@ -1,1 +1,329 @@
-<p>transaction-emission works!</p>
+<!-- <p>transaction-emission works!</p> -->
+<div>
+<form #f="ngForm" (ngSubmit)="onSubmit()">
+<div *ngIf="steps == 1" style="text-align:center; margin-bottom:30px;">
+    <h3>Effectuer un transfert national</h3>
+    <div style="justify-content:center;" class="p-formgroup-inline">
+        <div class="p-field-checkbox">
+          <p-radioButton name="typeClient" value="passager" [(ngModel)]="client" inputId="city7"></p-radioButton>
+          <label for="city7">Passager</label>
+        </div>
+        <div class="p-field-checkbox">
+            <p-radioButton name="typeClient" value="client" [(ngModel)]="client" inputId="city8"></p-radioButton>
+            <label for="city8">Client</label>
+        </div>
+    </div>
+
+    <div class="p-field">
+        <label for="fieldId">Type de Transfert</label>
+        <p-dropdown [options]="transferts" [(ngModel)]="selectedTransfertType" name="typeTransfert" optionLabel="name" optionValue="code" optionDisabled="active" placeholder="Sélectionner"></p-dropdown>
+    </div>
+
+    <div class="p-field">
+        <label for="fieldId">Pièce d'identité</label>
+        <p-dropdown [options]="identities" [(ngModel)]="selectedIdentityType" name="pieceIdentite" optionLabel="name" optionValue="code" optionDisabled="active" placeholder="Sélectionner"></p-dropdown>
+        <label for="fieldId">Numéro</label>
+        <input type="text" required  pInputText [(ngModel)]="identity" name=""/>
+    </div>
+    <div *ngIf="client == 'client'|| client == ''" class="btn_center">
+        <p-button class="btn_center" label="Rechercher" name="rechercher"></p-button>
+    </div>
+</div>
+
+<div *ngIf="client == 'client' && steps == 1" class="kyc">
+    <div class="p-d-flex">
+        <div class="p-mr-2"><label class="label_1" for="fieldId">Titre :</label><label for="fieldId">Monsieur</label></div>
+        <div class="p-mr-2"><label class="label_1" for="fieldId">Prénom :</label><label for="fieldId">Monsieur</label></div>
+        <div><label class="label_1" for="fieldId">Type d'identité :</label><label for="fieldId">Monsieur</label></div>
+    </div>
+
+    <div class="p-d-flex">
+        <div class="p-mr-2"><label class="label_1" for="fieldId">Pays d'émission :</label><label for="fieldId">Monsieur</label></div>
+        <div class="p-mr-2"><label class="label_1" for="fieldId">N° d'identité :</label><label for="fieldId">Monsieur</label></div>
+        <div><label class="label_1" for="fieldId">Validité didentité :</label><label for="fieldId">Monsieur</label></div>
+    </div>
+
+    <div class="p-d-flex">
+        <div class="p-mr-2"><label class="label_1" for="fieldId">Date de naissance :</label><label for="fieldId">Monsieur</label></div>
+        <div class="p-mr-2"><label class="label_1" for="fieldId">Profession :</label><label for="fieldId">Monsieur</label></div>
+        <div><label class="label_1" for="fieldId">Pays de nationalité :</label><label for="fieldId">Monsieur</label></div>
+    </div>
+
+    <div class="p-d-flex">
+        <div class="p-mr-2"><label class="label_1" for="fieldId">Pays d'adresse :</label><label for="fieldId">Monsieur</label></div>
+        <div class="p-mr-2"><label class="label_1" for="fieldId">Adresse légale :</label><label for="fieldId">Monsieur</label></div>
+        <div><label class="label_1" for="fieldId">Ville :</label><label for="fieldId">Monsieur</label></div>
+    </div>
+
+    <div class="p-d-flex">
+        <div class="p-mr-2"><label class="label_1" for="fieldId">GSM :</label><label for="fieldId">Monsieur</label></div>
+        <div class="p-mr-2"><label class="label_1" for="fieldId">Email :</label><label for="fieldId">Monsieur</label></div>
+    </div>
+</div>
+
+<div *ngIf="client == 'passager' && steps == 1" style="text-align:center;">
+  <h4>Saisir les KYCs du client passager</h4>
+</div>
+<div *ngIf="client == 'passager' && steps == 1" class="p-fluid p-grid">
+    <div class="p-field p-col-12 p-md-3">
+        <span class="p-float-label">
+          <p-dropdown
+            inputId="dropdown"
+            [autoDisplayFirst]="false"
+            [options]="titles"
+            [(ngModel)]="titre"
+            optionLabel="name"
+            name="titre"
+          ></p-dropdown>
+          <label for="dropdown">Titre</label>
+        </span>
+      </div>
+    <div style="margin-top:15px;" class="p-field p-col-12 p-md-3">
+        <span class="p-float-label">
+            <input type="text" id="inputtext" name="prenom" pInputText [(ngModel)]="prenom" />
+            <label for="inputtext">Prénom</label>
+          </span>
+    </div>
+    <div class="p-field p-col-12 p-md-3">
+        <span class="p-float-label">
+          <p-dropdown
+            inputId="dropdown"
+            [autoDisplayFirst]="false"
+            [options]="identities"
+            [(ngModel)]="typeIdentite"
+            optionLabel="name"
+            name="typeIdentity"
+          ></p-dropdown>
+          <label for="dropdown">Type d'identité</label>
+        </span>
+      </div>
+
+    <div class="p-field p-col-12 p-md-3">
+        <span class="p-float-label">
+            <p-dropdown
+              inputId="dropdown"
+              [autoDisplayFirst]="false"
+              [options]="cities"
+              [(ngModel)]="paysEmission"
+              optionLabel="name"
+              name="paysEmission"
+            ></p-dropdown>
+            <label for="dropdown">Pays d'émission</label>
+          </span>
+      </div>
+      <div style="margin-top:15px;" class="p-field p-col-12 p-md-3">
+          <span class="p-float-label">
+              <input type="text" id="inputtext" name="numIdentite" pInputText [(ngModel)]="numIdentite" />
+              <label for="inputtext">N° d'identité</label>
+            </span>
+      </div>
+      <div style="margin-top:15px;" class="p-field p-col-12 p-md-3">
+          <span class="p-float-label">
+              <input type="text" id="inputtext" name="validitéIdentite" pInputText [(ngModel)]="validiteIdentite" />
+              <label for="inputtext">Validité d'identité</label>
+            </span>
+      </div>
+
+      <div class="field col-12 p-md-3">
+        <span class="p-float-label">
+            <p-calendar inputId="calendar" name="dateNaissance" [(ngModel)]="dateNaissance"></p-calendar>
+            <label for="calendar">Date de naissance</label>
+        </span>
+    </div>
+      <div style="margin-top:15px;" class="p-field p-col-12 p-md-3">
+        <span class="p-float-label">
+          <p-dropdown
+            inputId="dropdown"
+            [autoDisplayFirst]="false"
+            [options]="professions"
+            [(ngModel)]="prefession"
+            optionLabel="name"
+            name="profession"
+          ></p-dropdown>
+          <label for="dropdown">Profession</label>
+        </span>
+      </div>
+      <div class="p-field p-col-12 p-md-3">
+        <span class="p-float-label">
+            <p-dropdown
+              inputId="dropdown"
+              [autoDisplayFirst]="false"
+              [options]="cities"
+              [(ngModel)]="paysNationalite"
+              optionLabel="name"
+              name="paysNationalite"
+            ></p-dropdown>
+            <label for="dropdown">Pays de nationalité</label>
+          </span>
+      </div>
+
+      <div class="p-field p-col-12 p-md-3">
+        <span class="p-float-label">
+            <p-dropdown
+              inputId="dropdown"
+              [autoDisplayFirst]="false"
+              [options]="cities"
+              [(ngModel)]="paysAdresse"
+              optionLabel="name"
+              name="paysAdresse"
+            ></p-dropdown>
+            <label for="dropdown">Pays d'adresse</label>
+          </span>
+      </div>
+      <div class="p-field p-col-12 p-md-3">
+        <span class="p-float-label">
+            <p-dropdown
+              inputId="dropdown"
+              [autoDisplayFirst]="false"
+              [options]="cities"
+              [(ngModel)]="ville"
+              optionLabel="name"
+              name="ville"
+            ></p-dropdown>
+            <label for="dropdown">Ville</label>
+          </span>
+      </div>
+      <div style="margin-top:15px;" class="p-field p-col-12 p-md-3">
+        <span class="p-float-label">
+          <input type="text" id="inputtext" name="email" pInputText [(ngModel)]="email" />
+          <label for="inputtext">Email</label>
+        </span>
+      </div>
+
+      <div style="margin-top:15px;" class="p-field p-col-12 p-md-3">
+        <span class="p-float-label">
+          <input type="text" id="inputtext" name="gsm" pInputText [(ngModel)]="gsm" />
+          <label for="inputtext">GSM</label>
+        </span>
+      </div>
+      <div class="p-field p-col-12 p-md-6">
+        <span class="p-float-label">
+          <textarea pInputTextarea [(ngModel)]="adrsseLegale" name="adresseLegale"></textarea>
+          <label for="textarea">Adresse légale</label>
+        </span>
+      </div>
+    
+  </div>
+
+  <div *ngIf="steps == 2" style="text-align:center; margin-bottom:30px;">
+    <h3 style="margin: 20px;">Gestion des frais et notification du transfert</h3>
+    <div style="justify-content:center; margin: 20px;" class="p-formgroup-inline">
+      <label class="trNotif" for="">Envoyer la notification du transfet</label>
+      <div class="p-field-checkbox">
+        <p-radioButton name="city7" value="trOui" name="notif" [(ngModel)]="city2" inputId="city7"></p-radioButton>
+        <label for="city7">Oui</label>
+      </div>
+      <div class="p-field-checkbox">
+          <p-radioButton name="city8" value="trNon" name="nonNotif" [(ngModel)]="city2" inputId="city8"></p-radioButton>
+          <label for="city8">Non</label>
+      </div>
+    </div>
+  
+    <div style="margin: 20px;" class="p-field">
+      <label for="fieldId">Gestion des frais</label>
+      <p-dropdown [options]="frais" [(ngModel)]="selectedTransfertType" name="frais" optionLabel="name" optionValue="code" optionDisabled="active" placeholder="Sélectionner"></p-dropdown>
+    </div>
+
+    <div class="p-field">
+      <label for="fieldId">Montant</label>
+      <input type="text" pInputText [(ngModel)]="identity" name=""/>
+    </div>
+  </div>
+  
+
+  <div>
+    <div *ngIf="client == 'passager' && steps == 3" class="beneficiciare" style="text-align:center; margin-bottom:30px;">
+      <h3>Information sur le bénéficiaire</h3>
+      
+      <div>
+        <label for="fieldId">Non</label>
+        <input type="text" name="benNom" pInputText [(ngModel)]="identity"/>
+      </div>
+  
+      <div>
+        <label style="margin-left: -16px;" for="fieldId">Prénom</label>
+        <input type="text" name="benPrenom" pInputText [(ngModel)]="identity"/>
+      </div>
+  
+      <div>
+        <label for="fieldId">GSM</label>
+        <input type="text" name="benGSM" pInputText [(ngModel)]="identity"/>
+      </div>
+    </div>
+    
+    <div *ngIf="client == 'client' && steps == 3 || steps == 4" style="text-align:center; margin-bottom:30px;" class="p-field">
+      <h6 style="margin: 20px;">Séléctionner le bénéficiaire</h6>
+      <label style="margin: 20px;" for="fieldId">Bénéficiaires</label>
+      <p-dropdown style="margin: 20px;" name="selectBen" [options]="beneficiaires" [(ngModel)]="selectedTransfertType" optionLabel="name" optionValue="code" optionDisabled="active" placeholder="Sélectionner"></p-dropdown>
+  
+      <h6 style="margin: 20px;">OU</h6>
+  
+      <div class="btn_center">
+        <p-button class="btn_center" (click) = "onAddBen()" label="Ajouter Bénéficiaire"></p-button>
+    </div>
+    </div>
+  </div>
+
+  <div *ngIf="client == 'client' && steps == 4" class="beneficiciare" style="text-align:center; margin-bottom:30px;">
+    <h3>Information sur le bénéficiaire</h3>
+    
+    <div>
+      <label for="fieldId">Non</label>
+      <input type="text" name="benNom" pInputText [(ngModel)]="identity"/>
+    </div>
+
+    <div>
+      <label style="margin-left: -16px;" for="fieldId">Prénom</label>
+      <input type="text" name="benPrenom" pInputText [(ngModel)]="identity"/>
+    </div>
+
+    <div>
+      <label for="fieldId">GSM</label>
+      <input type="text" name="benGSM" pInputText [(ngModel)]="identity"/>
+    </div>
+
+    <div  class="btn_center">
+      <p-button class="btn_center" (click) = "onAddBeneficiaire()" label="Ajouter"></p-button>
+  </div>
+  </div>
+  <!-- <div *ngIf="city2 == 'passager'" class="beneficiciare" style="text-align:center; margin-bottom:30px;">
+    <h3>Information sur le bénéficiaire</h3>
+    
+    <div>
+      <label for="fieldId">Non</label>
+      <input type="text" pInputText [(ngModel)]="identity"/>
+    </div>
+
+    <div>
+      <label style="margin-left: -16px;" for="fieldId">Prénom</label>
+      <input type="text" pInputText [(ngModel)]="identity"/>
+    </div>
+
+    <div>
+      <label for="fieldId">GSM</label>
+      <input type="text" pInputText [(ngModel)]="identity"/>
+    </div>
+  </div>
+  
+  <div *ngIf="city2 == 'client'" style="text-align:center; margin-bottom:30px;" class="p-field">
+    <h6>Séléctionner le bénéficiaire</h6>
+    <label for="fieldId">Bénéficiaires</label>
+    <p-dropdown [options]="beneficiaires" [(ngModel)]="selectedTransfertType" optionLabel="name" optionValue="code" optionDisabled="active" placeholder="Sélectionner"></p-dropdown>
+
+    <h6>OU</h6>
+
+    <div class="btn_center">
+      <p-button class="btn_center" label="Rechercher"></p-button>
+  </div>
+  </div> -->
+  
+
+  <div style="display:flex; justify-content: space-between; width:60%; margin:auto; ">
+      <button *ngIf="steps != 1" (click) = "onBack()"  style="justify-content: right;" pButton pRipple type="button" label="Retour" class="p-button-warning"></button>
+      <button *ngIf="steps < 3" pButton pRipple type="submit" label="Suivant" class="p-button-success"></button>
+      <button *ngIf="steps >= 3" pButton type="submit" label="Submit" class="p-button-help"></button>
+  </div>
+</form>
+
+</div>
+

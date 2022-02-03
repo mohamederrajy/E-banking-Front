@@ -39,6 +39,7 @@ import {AdmineComponent} from "./view/admine/admine.component";
                 children:[
                     {path: 'client-management', component: ClientManagementComponent},
                     {path: 'transaction-emission', component: TransactionEmissionComponent},
+                    {path: 'transaction-historique', component: TransactionHistoriqueComponent},
                     {path: 'transaction-servir', component: TransactionServirComponent},
                     {path: 'transaction-extourn', component: TransactionExtournComponent},
                     {path: 'transaction-restitution', component: TransactionRestitutionComponent},

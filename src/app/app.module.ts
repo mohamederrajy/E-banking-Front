@@ -86,6 +86,7 @@ import {TooltipModule} from 'primeng/tooltip';
 import {TreeModule} from 'primeng/tree';
 import {TreeTableModule} from 'primeng/treetable';
 import {VirtualScrollerModule} from 'primeng/virtualscroller';
+import {} from 'primeng/inputtextarea';
 
 import {AppComponent} from './app.component';
 
@@ -118,6 +119,15 @@ import { TransactionDebloquageComponent } from './view/admine/transaction-debloq
 import { TransactionNotificationComponent } from './view/admine/transaction-notification/transaction-notification.component';
 import { PlafondConfigComponent } from './view/admine/plafond-config/plafond-config.component';
 import { CommissionComponent } from './view/admine/commission/commission.component';
+import { CountryService } from './view/agent/transaction-emission/countiesService';
+import { JobService } from './view/agent/transaction-emission/jobsService';
+import { TicketService } from './view/agent/transaction-servir/ticketService';
+import { PersonalComponent } from './view/agent/transaction-servir/personal/personal.component';
+import { SeatComponent } from './view/agent/transaction-servir/seat/seat.component';
+import { PaymentComponent } from './view/agent/transaction-servir/payment/payment.component';
+import { ConfirmationComponent } from './view/agent/transaction-servir/confirmation/confirmation.component';
+import { ProductService } from './view/agent/transaction-servir/product.service';
+
 
 @NgModule({
     imports: [
@@ -231,11 +241,16 @@ import { CommissionComponent } from './view/admine/commission/commission.compone
         TransactionNotificationComponent,
         PlafondConfigComponent,
         CommissionComponent,
+        PersonalComponent,
+        SeatComponent,
+        PaymentComponent,
+        ConfirmationComponent,
+
 
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
-         MenuService, MessageService, ConfirmationService
+         MenuService, MessageService, ConfirmationService, CountryService, JobService, TicketService, ProductService
     ],
     bootstrap: [AppComponent]
 })

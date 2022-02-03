@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PrimeNGConfig } from 'primeng/api';
 import {MenuService} from "../shared/slide-bar/app.menu.service";
 import {AppComponent} from "../../app.component";
 
@@ -42,7 +43,7 @@ export class AgentComponent  {
 
   inlineUserMenuActive = false;
 
-  constructor(private menuService: MenuService, public app: AppComponent) {
+  constructor(private menuService: MenuService, public app: AppComponent, private primengConfig: PrimeNGConfig) {
   }
 
   onLayoutClick() {

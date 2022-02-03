@@ -1,1 +1,223 @@
-<p>transaction-servir works!</p>
+<h2>Servir un Transfert National</h2>
+<h5>Vueillez assurer le processus suivant ! </h5>
+<div style="background-color: white; margin-top: 30px; height: 70px; padding-top:10px;">
+<p-steps [model]="geeks" 
+    [(activeIndex)]="steps" [readonly]="true">
+</p-steps>
+</div>
+<br />
+<form #f="ngForm" (ngSubmit)="onSubmit()">
+
+    <div *ngIf="steps == 0" style="text-align:center;margin: 30px;" >
+        <div class="p-field">
+            <label style="margin: 10px;" for="fieldId">Réference de la transaction</label>
+            <input style="margin: 10px;" type="text" required  pInputText [(ngModel)]="reference" name="reference"/>
+        </div>
+        <div class="btn_center">
+            <p-button class="btn_center" label="Rechercher" name="rechercher"></p-button>
+        </div>
+    </div>
+
+    <div *ngIf="steps == 0" style="margin: 30px;">
+        <p-table [value]="products" styleClass="p-datatable-gridlines" responsiveLayout="scroll">
+            <ng-template pTemplate="caption">
+                Information du donneur d'ordre
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>ID Agent</th>
+                    <th>Wallet Cleint</th>
+                    <th>Nom & Prénom</th>
+                    <th>Date d'émission</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr>
+                    <td>{{product.code}}</td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.category}}</td>
+                    <td>{{product.quantity}}</td>
+                </tr>
+            </ng-template>
+            <!-- <ng-template pTemplate="summary">
+                Footer
+            </ng-template> -->
+        </p-table>
+    </div>
+    <div *ngIf="steps == 0" style="margin: 30px;">
+        <p-table [value]="products" styleClass="p-datatable-gridlines" responsiveLayout="scroll">
+            <ng-template pTemplate="caption">
+                Information de l'opération de transfert
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Montant à servir</th>
+                    <th>Nom du bénéficiaire</th>
+                    <th>Prénom du bénéficiaire</th>
+                    
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr>
+                    <td>{{product.code}}</td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.category}}</td>
+                    
+                </tr>
+            </ng-template>
+            <!-- <ng-template pTemplate="summary">
+                Footer
+            </ng-template> -->
+        </p-table>
+    </div>
+
+    <div *ngIf="steps == 1" class="p-fluid p-grid" style="margin-top: 30px;">
+        <div class="p-field p-col-12 p-md-3">
+            <span class="p-float-label">
+              <p-dropdown
+                inputId="dropdown"
+                [autoDisplayFirst]="false"
+                [options]="titles"
+                [(ngModel)]="titre"
+                optionLabel="name"
+                name="titre"
+              ></p-dropdown>
+              <label for="dropdown">Titre</label>
+            </span>
+          </div>
+        <div class="p-field p-col-12 p-md-3">
+            <span class="p-float-label">
+                <input type="text" id="inputtext" name="prenom" pInputText [(ngModel)]="prenom" />
+                <label for="inputtext">Prénom</label>
+              </span>
+        </div>
+        <div class="p-field p-col-12 p-md-3">
+            <span class="p-float-label">
+              <p-dropdown
+                inputId="dropdown"
+                [autoDisplayFirst]="false"
+                [options]="identities"
+                [(ngModel)]="typeIdentite"
+                optionLabel="name"
+                name="typeIdentity"
+              ></p-dropdown>
+              <label for="dropdown">Type d'identité</label>
+            </span>
+          </div>
+    
+        <div class="p-field p-col-12 p-md-3">
+            <span class="p-float-label">
+                <p-dropdown
+                  inputId="dropdown"
+                  [autoDisplayFirst]="false"
+                  [options]="cities"
+                  [(ngModel)]="paysEmission"
+                  optionLabel="name"
+                  name="paysEmission"
+                ></p-dropdown>
+                <label for="dropdown">Pays d'émission</label>
+              </span>
+          </div>
+          <div class="p-field p-col-12 p-md-3">
+              <span class="p-float-label">
+                  <input type="text" id="inputtext" name="numIdentite" pInputText [(ngModel)]="numIdentite" />
+                  <label for="inputtext">N° d'identité</label>
+                </span>
+          </div>
+          <div class="p-field p-col-12 p-md-3">
+              <span class="p-float-label">
+                  <input type="text" id="inputtext" name="validitéIdentite" pInputText [(ngModel)]="validiteIdentite" />
+                  <label for="inputtext">Validité d'identité</label>
+                </span>
+          </div>
+    
+          <div class="field col-12 p-md-3">
+            <span class="p-float-label">
+                <p-calendar inputId="calendar" name="dateNaissance" [(ngModel)]="dateNaissance"></p-calendar>
+                <label for="calendar">Date de naissance</label>
+            </span>
+        </div>
+          <div class="p-field p-col-12 p-md-3">
+            <span class="p-float-label">
+              <p-dropdown
+                inputId="dropdown"
+                [autoDisplayFirst]="false"
+                [options]="professions"
+                [(ngModel)]="prefession"
+                optionLabel="name"
+                name="profession"
+              ></p-dropdown>
+              <label for="dropdown">Profession</label>
+            </span>
+          </div>
+          <div class="p-field p-col-12 p-md-3">
+            <span class="p-float-label">
+                <p-dropdown
+                  inputId="dropdown"
+                  [autoDisplayFirst]="false"
+                  [options]="cities"
+                  [(ngModel)]="paysNationalite"
+                  optionLabel="name"
+                  name="paysNationalite"
+                ></p-dropdown>
+                <label for="dropdown">Pays de nationalité</label>
+              </span>
+          </div>
+    
+          <div class="p-field p-col-12 p-md-3">
+            <span class="p-float-label">
+                <p-dropdown
+                  inputId="dropdown"
+                  [autoDisplayFirst]="false"
+                  [options]="cities"
+                  [(ngModel)]="paysAdresse"
+                  optionLabel="name"
+                  name="paysAdresse"
+                ></p-dropdown>
+                <label for="dropdown">Pays d'adresse</label>
+              </span>
+          </div>
+          <div class="p-field p-col-12 p-md-3">
+            <span class="p-float-label">
+                <p-dropdown
+                  inputId="dropdown"
+                  [autoDisplayFirst]="false"
+                  [options]="cities"
+                  [(ngModel)]="ville"
+                  optionLabel="name"
+                  name="ville"
+                ></p-dropdown>
+                <label for="dropdown">Ville</label>
+              </span>
+          </div>
+          <div class="p-field p-col-12 p-md-3">
+            <span class="p-float-label">
+              <input type="text" id="inputtext" name="email" pInputText [(ngModel)]="email" />
+              <label for="inputtext">Email</label>
+            </span>
+          </div>
+    
+          <div class="p-field p-col-12 p-md-3">
+            <span class="p-float-label">
+              <input type="text" id="inputtext" name="gsm" pInputText [(ngModel)]="gsm" />
+              <label for="inputtext">GSM</label>
+            </span>
+          </div>
+          <div class="p-field p-col-12 p-md-6">
+            <span class="p-float-label">
+              <textarea pInputTextarea [(ngModel)]="adrsseLegale" name="adresseLegale"></textarea>
+              <label for="textarea">Adresse légale</label>
+            </span>
+          </div>
+        
+    </div>
+
+    <div>
+        
+    </div>
+    <div>
+        <button *ngIf="steps != 0" (click) = "onBack()"  style="justify-content: right;" pButton pRipple type="button" label="Retour" class="p-button-warning"></button>
+        <button style="margin-left: 8px;" *ngIf="steps < 2" pButton pRipple type="submit" label="Suivant" class="p-button-success"></button>
+        <button style="margin-left: 8px;" *ngIf="steps >= 2" pButton type="submit" label="Submit" class="p-button-help"></button>
+    </div>
+</form>
