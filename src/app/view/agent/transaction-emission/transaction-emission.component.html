@@ -252,7 +252,7 @@
     </div>
     
     <div *ngIf="cliente == 'client' && steps == 3 || steps == 4" style="text-align:center; margin-bottom:30px;" class="p-field">
-      <h6 style="margin: 20px;">Séléctionner le bénéficiaire</h6>
+      <h4 style="margin: 20px;">Séléctionner le bénéficiaire</h4>
       <label style="margin: 20px;" for="fieldId">Bénéficiaires</label>
       <p-dropdown style="margin: 20px;" name="selectBen" [options]="beneficiaires" [(ngModel)]="selectedTransfertType" optionLabel="name" optionValue="code" optionDisabled="active" placeholder="Sélectionner"></p-dropdown>
   
