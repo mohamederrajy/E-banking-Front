@@ -5,7 +5,7 @@
     <h3>Effectuer un transfert national</h3>
     <div style="justify-content:center;" class="p-formgroup-inline">
         <div class="p-field-checkbox">
-          <p-radioButton name="typeClient" value="passager" [(ngModel)]="client" inputId="city7"></p-radioButton>
+          <p-radioButton name="typeClient" value="passager" [(ngModel)]="cliente" inputId="city7"></p-radioButton>
           <label for="city7">Passager</label>
         </div>
         <div class="p-field-checkbox">
@@ -264,7 +264,7 @@
     </div>
   </div>
 
-  <div *ngIf="client == 'client' && steps == 4" class="beneficiciare" style="text-align:center; margin-bottom:30px;">
+  <div *ngIf="cliente == 'client' && steps == 4" class="beneficiciare" style="text-align:center; margin-bottom:30px;">
     <h3>Information sur le bénéficiaire</h3>
     
     <div>
