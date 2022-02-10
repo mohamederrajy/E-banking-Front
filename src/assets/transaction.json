@@ -1,0 +1,17 @@
+{
+	"data": [
+		{
+			"id": "1000",
+			"code": "f230fh0g3",
+			"name": "fsd-wh98",
+			"description": "Product Description",
+			"image": "bamboo-watch.jpg",
+			"price": 65,
+			"category": "Elmeskaoui Amine",
+			"quantity": "24-12-2021",
+			"inventoryStatus": "INSTOCK",
+			"rating": 5
+		}
+		
+	]
+}

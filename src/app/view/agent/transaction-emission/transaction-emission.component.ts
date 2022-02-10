@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
+import { Client } from '../../objects/client';
+import { ClientService } from '../../services/client.service';
 import { CountryService } from './countiesService';
 import { JobService } from './jobsService';
 
@@ -27,7 +29,8 @@ interface titles{
 })
 export class TransactionEmissionComponent implements OnInit {
 
-  client:string = "";
+  client:Client;
+  cliente:string;
   identity:string;
   value1:any;
   value3:any;
@@ -48,7 +51,7 @@ export class TransactionEmissionComponent implements OnInit {
   beneficiaires:any[];
   
 
-  constructor(private primengConfig: PrimeNGConfig, private countryService: CountryService, private jobService:JobService) { 
+  constructor(private primengConfig: PrimeNGConfig, private countryService: CountryService, private jobService:JobService, private clientService:ClientService) { 
     this.transferts = [
       {name: 'Espece', code: 1},
       {name: 'Débit', code: 2}
@@ -99,6 +102,18 @@ export class TransactionEmissionComponent implements OnInit {
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
+    // this.client = this.clientService.getProduct();
+    
+  }
+
+  searchClient():void
+  {
+    console.log(this.steps);
+    // this.property = this.client.id;
+    this.cliente = "client";
+    // this.client = this.clientService.getProduct();
+    this.property = this.client.id;
+
   }
 
   onSubmit()

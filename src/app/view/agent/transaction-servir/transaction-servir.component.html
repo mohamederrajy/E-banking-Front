@@ -19,7 +19,7 @@
     </div>
 
     <div *ngIf="steps == 0" style="margin: 30px;">
-        <p-table [value]="products" styleClass="p-datatable-gridlines" responsiveLayout="scroll">
+        <p-table [value]="transactions" styleClass="p-datatable-gridlines" responsiveLayout="scroll">
             <ng-template pTemplate="caption">
                 Information du donneur d'ordre
             </ng-template>
@@ -31,12 +31,12 @@
                     <th>Date d'émission</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-product>
+            <ng-template pTemplate="body" let-transaction>
                 <tr>
-                    <td>{{product.code}}</td>
-                    <td>{{product.name}}</td>
-                    <td>{{product.category}}</td>
-                    <td>{{product.quantity}}</td>
+                    <td>{{transaction.code}}</td>
+                    <td>{{transaction.name}}</td>
+                    <td>{{transaction.category}}</td>
+                    <td>{{transaction.quantity}}</td>
                 </tr>
             </ng-template>
             <!-- <ng-template pTemplate="summary">
@@ -45,7 +45,7 @@
         </p-table>
     </div>
     <div *ngIf="steps == 0" style="margin: 30px;">
-        <p-table [value]="products" styleClass="p-datatable-gridlines" responsiveLayout="scroll">
+        <p-table [value]="transactions" styleClass="p-datatable-gridlines" responsiveLayout="scroll">
             <ng-template pTemplate="caption">
                 Information de l'opération de transfert
             </ng-template>
@@ -57,11 +57,11 @@
                     
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-product>
+            <ng-template pTemplate="body" let-transaction>
                 <tr>
-                    <td>{{product.code}}</td>
-                    <td>{{product.name}}</td>
-                    <td>{{product.category}}</td>
+                    <td>{{transaction.code}}</td>
+                    <td>{{transaction.name}}</td>
+                    <td>{{transaction.category}}</td>
                     
                 </tr>
             </ng-template>

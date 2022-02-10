@@ -127,7 +127,8 @@ import { SeatComponent } from './view/agent/transaction-servir/seat/seat.compone
 import { PaymentComponent } from './view/agent/transaction-servir/payment/payment.component';
 import { ConfirmationComponent } from './view/agent/transaction-servir/confirmation/confirmation.component';
 import { ProductService } from './view/agent/transaction-servir/product.service';
-
+import { ConsultationService } from './view/admine/transaction-consultation/consultation.service';
+import { TransactionService } from './view/services/transaction.service';
 
 @NgModule({
     imports: [
@@ -250,7 +251,7 @@ import { ProductService } from './view/agent/transaction-servir/product.service'
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
-         MenuService, MessageService, ConfirmationService, CountryService, JobService, TicketService, ProductService
+         MenuService, MessageService, ConfirmationService, CountryService, JobService, TicketService, ProductService, ConsultationService, TransactionService, ProductService   
     ],
     bootstrap: [AppComponent]
 })

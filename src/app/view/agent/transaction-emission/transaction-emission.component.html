@@ -9,7 +9,7 @@
           <label for="city7">Passager</label>
         </div>
         <div class="p-field-checkbox">
-            <p-radioButton name="typeClient" value="client" [(ngModel)]="client" inputId="city8"></p-radioButton>
+            <p-radioButton name="typeClient" value="client" [(ngModel)]="cliente" inputId="city8"></p-radioButton>
             <label for="city8">Client</label>
         </div>
     </div>
@@ -25,14 +25,14 @@
         <label for="fieldId">Numéro</label>
         <input type="text" required  pInputText [(ngModel)]="identity" name=""/>
     </div>
-    <div *ngIf="client == 'client'|| client == ''" class="btn_center">
-        <p-button class="btn_center" label="Rechercher" name="rechercher"></p-button>
+    <div *ngIf="cliente == 'client'|| cliente == ''" class="btn_center">
+        <p-button class="btn_center" label="Rechercher" name="rechercher" (click) = "searchClient()"></p-button>
     </div>
 </div>
 
-<div *ngIf="client == 'client' && steps == 1" class="kyc">
+<div *ngIf="cliente == 'client' && steps == 1" class="kyc">
     <div class="p-d-flex">
-        <div class="p-mr-2"><label class="label_1" for="fieldId">Titre :</label><label for="fieldId">Monsieur</label></div>
+        <div class="p-mr-2"><label class="label_1" for="fieldId">Titre :</label><label for="fieldId">{{property}}</label></div>
         <div class="p-mr-2"><label class="label_1" for="fieldId">Prénom :</label><label for="fieldId">Monsieur</label></div>
         <div><label class="label_1" for="fieldId">Type d'identité :</label><label for="fieldId">Monsieur</label></div>
     </div>
@@ -61,10 +61,10 @@
     </div>
 </div>
 
-<div *ngIf="client == 'passager' && steps == 1" style="text-align:center;">
+<div *ngIf="cliente == 'passager' && steps == 1" style="text-align:center;">
   <h4>Saisir les KYCs du client passager</h4>
 </div>
-<div *ngIf="client == 'passager' && steps == 1" class="p-fluid p-grid">
+<div *ngIf="cliente == 'passager' && steps == 1" class="p-fluid p-grid">
     <div class="p-field p-col-12 p-md-3">
         <span class="p-float-label">
           <p-dropdown
@@ -232,7 +232,7 @@
   
 
   <div>
-    <div *ngIf="client == 'passager' && steps == 3" class="beneficiciare" style="text-align:center; margin-bottom:30px;">
+    <div *ngIf="cliente == 'passager' && steps == 3" class="beneficiciare" style="text-align:center; margin-bottom:30px;">
       <h3>Information sur le bénéficiaire</h3>
       
       <div>
@@ -251,7 +251,7 @@
       </div>
     </div>
     
-    <div *ngIf="client == 'client' && steps == 3 || steps == 4" style="text-align:center; margin-bottom:30px;" class="p-field">
+    <div *ngIf="cliente == 'client' && steps == 3 || steps == 4" style="text-align:center; margin-bottom:30px;" class="p-field">
       <h6 style="margin: 20px;">Séléctionner le bénéficiaire</h6>
       <label style="margin: 20px;" for="fieldId">Bénéficiaires</label>
       <p-dropdown style="margin: 20px;" name="selectBen" [options]="beneficiaires" [(ngModel)]="selectedTransfertType" optionLabel="name" optionValue="code" optionDisabled="active" placeholder="Sélectionner"></p-dropdown>

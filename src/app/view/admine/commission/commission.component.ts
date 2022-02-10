@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./commission.component.scss']
 })
 export class CommissionComponent implements OnInit {
+  val: number;
 
   constructor() { }
 

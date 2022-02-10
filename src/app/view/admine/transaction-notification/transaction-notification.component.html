@@ -1,1 +1,65 @@
-<p>transaction-notification works!</p>
+<h4 style="text-align:center;margin: 30px;">Renvoie de la notification du transfert</h4>
+<form #f="ngForm" (ngSubmit)="onSubmit()">
+    <div style="text-align:center;margin: 30px;" >
+        <div class="p-field">
+            <label style="margin: 10px;" for="fieldId">Réference de la transaction</label>
+            <input style="margin: 10px;" type="text" required  pInputText [(ngModel)]="reference" name="reference"/>
+        </div>
+        <div class="btn_center">
+            <p-button class="btn_center" label="Rechercher" name="rechercher" (click)="findByReference()"></p-button>
+        </div>
+    </div>
+
+    <div style="margin: 30px;">
+        <p-table [value]="transactions" styleClass="p-datatable-gridlines" responsiveLayout="scroll">
+            <ng-template pTemplate="caption">
+                Information du donneur d'ordre
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>ID Agent</th>
+                    <th>Wallet Cleint</th>
+                    <th>Nom & Prénom</th>
+                    <th>Date d'émission</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-transaction>
+                <tr>
+                    <td>{{transaction.code}}</td>
+                    <td>{{transaction.name}}</td>
+                    <td>{{transaction.category}}</td>
+                    <td>{{transaction.quantity}}</td>
+                </tr>
+            </ng-template>
+            <!-- <ng-template pTemplate="summary">
+                Footer
+            </ng-template> -->
+        </p-table>
+    </div>
+    <div style="margin: 30px;">
+        <p-table [value]="transactions" styleClass="p-datatable-gridlines" responsiveLayout="scroll">
+            <ng-template pTemplate="caption">
+                Information de l'opération de transfert
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Montant à servir</th>
+                    <th>Nom du bénéficiaire</th>
+                    <th>Prénom du bénéficiaire</th>
+                    
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-transaction>
+                <tr>
+                    <td>{{transaction.code}}</td>
+                    <td>{{transaction.name}}</td>
+                    <td>{{transaction.category}}</td>
+                    
+                </tr>
+            </ng-template>
+            <!-- <ng-template pTemplate="summary">
+                Footer
+            </ng-template> -->
+        </p-table>
+    </div>
+</form>

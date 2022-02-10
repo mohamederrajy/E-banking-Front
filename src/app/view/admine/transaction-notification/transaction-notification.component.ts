@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Transaction } from '../../objects/transaction';
+import { TransactionService } from '../../services/transaction.service';
 
 @Component({
   selector: 'app-transaction-notification',
@@ -7,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TransactionNotificationComponent implements OnInit {
 
-  constructor() { }
+  transactions:Transaction;
+  reference:any;
+
+  constructor(private transactionService:TransactionService) { }
 
   ngOnInit(): void {
+    
+  }
+
+  onSubmit()
+  {
+      
+  }
+
+  findByReference()
+  {
+    this.transactionService.getProducts().then(data => (this.transactions = data));
   }
 
 }

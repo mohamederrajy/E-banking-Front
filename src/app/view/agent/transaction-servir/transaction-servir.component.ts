@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import {MenuItem} from 'primeng/api';
 import {MessageService} from 'primeng/api';
 import { Subscription } from 'rxjs';
+import { Transaction } from '../../objects/transaction';
+import { TransactionService } from '../../services/transaction.service';
 import { Product } from '../client-management/Product';
 import { ProductService } from './product.service';
 import { TicketService } from './ticketService';
@@ -33,6 +35,7 @@ export class TransactionServirComponent implements OnInit {
   
   items: MenuItem[];
   products: Product[];
+  transactions:Transaction;
 
   client:string = "";
   identity:string;
@@ -56,7 +59,7 @@ export class TransactionServirComponent implements OnInit {
     
   subscription: Subscription;
 
-  constructor(public messageService: MessageService, public ticketService: TicketService, private productService: ProductService) {
+  constructor(public messageService: MessageService, public ticketService: TicketService, private productService: ProductService, private transactionService:TransactionService) {
     this.titles = [
       {name:'Monsieur', code:1},
       {name: 'Madame', code:2}
@@ -94,7 +97,8 @@ export class TransactionServirComponent implements OnInit {
     //   { label: "HTML" },
     ];
 
-    this.productService.getProductsSmall().then(data => (this.products = data));
+    //this.productService.getProductsSmall().then(data => (this.products = data));
+    this.transactionService.getProducts().then(data => (this.transactions = data));
   }
 
   onSubmit()
